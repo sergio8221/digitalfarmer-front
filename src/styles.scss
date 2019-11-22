@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Imports */
+//> Imports
 
 @import './assets/styles/variables';
 
-/* Reset styles */
+//> Resets
 
 * {
   margin: 0;
@@ -12,11 +12,12 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   color: $color-grey-light;
+  outline: none;
 }
 
-/* Structure */
+//> Structure
 
-app-main {
+.app-screen {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -32,12 +33,25 @@ app-main {
   background-size: cover;
 }
 
-/* Card styles */
+//> Elevation effects
+
+.elevation-z1 {
+  box-shadow: 0 3px 6px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+.elevation-z2 {
+  box-shadow: 0 5px 8px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+.elevation-z3 {
+  box-shadow: 0 8px 10px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+//> Card styles
 
 .card {
   width: 90%;
   height: 7rem;
-  box-shadow: 0 5px 8px 0 rgba($color: $color-black, $alpha: .5);
   margin: 1rem 0;
   position: relative;
   overflow: hidden;
@@ -86,8 +100,7 @@ app-main {
 }
 
 
-
-/* Cards content */
+//> Cards content
 
 .card__content {
   background-color: rgba($color: $color-primary-dark, $alpha: .5);
@@ -136,7 +149,46 @@ app-main {
   flex: 1 1 50%;
 }
 
-.card__info>i{
-    font-size: 1rem;
-    width: 1.3rem;
+.card__info>i {
+  font-size: 1rem;
+  width: 1.3rem;
+}
+
+//> Add item button
+
+.btn-add {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: fixed;
+  bottom: 5rem;
+  right: .5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: $color-secondary-light;
+  animation: btn-entering .7s ease-out;
+}
+
+.btn-add i {
+  font-size: 1.5rem;
+  animation: btn-rotating .7s ease-out
+}
+
+@keyframes btn-entering {
+  0% {
+    transform: translateX(4rem);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes btn-rotating {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
 }
