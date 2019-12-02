@@ -1,0 +1,51 @@
+<!-- Filter card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/animals']"><i
+                class="fas fa-arrow-left"></i></button>
+        <button type="button" class="card-filter__btn-title" (click)="toggleFilters()">
+            <span>FILTRAR</span>
+            <i class="fas fa-arrow-down card-filter__arrow" [ngClass]="{'card-filter__arrow--shown': showFilters}"></i>
+        </button>
+    </div>
+    <!-- Content -->
+    <div class="card-filter__content" [ngClass]="{'card-filter__content--shown': showFilters}">
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Adultos</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Crías</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Machos</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Hembras</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Estabulados</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>En pasto</span>
+        </div>
+    </div>
+</section>
+
+<!-- Animal card -->
+<section class="card card-animal elevation-z2">
+    <div class="card-animal__header">
+        <h2>Tudanca</h2>
+    </div>
+</section>
+
+<!-- Add button -->
+<button class="btn-add elevation-z2" type="button">
+    <i class="fas fa-plus"></i>
+</button>

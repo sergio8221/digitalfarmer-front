@@ -7,6 +7,7 @@ import { MainComponent } from './components/main/main.component';
 import { AnimalsComponent } from './components/animals/animals.component';
 import { CropsComponent } from './components/crops/crops.component';
 import { MachineryComponent } from './components/machinery/machinery.component';
+import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MachineryComponent } from './components/machinery/machinery.component';
     MainComponent,
     AnimalsComponent,
     CropsComponent,
-    MachineryComponent
+    MachineryComponent,
+    AnimalsListComponent
   ],
   imports: [
     BrowserModule,
