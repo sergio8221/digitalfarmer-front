@@ -15,8 +15,14 @@ export class AnimalsListComponent implements OnInit {
    */
   showFilters: boolean;
 
+  /**
+   * Expand animal card?
+   */
+  expandAnimal: boolean;
+
   constructor() {
     this.showFilters = false;
+    this.expandAnimal = false;
   }
 
   ngOnInit() {

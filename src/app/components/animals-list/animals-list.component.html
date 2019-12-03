@@ -39,9 +39,28 @@
 </section>
 
 <!-- Animal card -->
-<section class="card card-animal elevation-z2">
+<section class="card card-animal elevation-z2" [ngClass]="{'card-animal--shown': expandAnimal}" (click)="expandAnimal = !expandAnimal">
     <div class="card-animal__header">
-        <h2>Tudanca</h2>
+        <h2>75639 - Bonita</h2>
+        <img src="../../../assets/vectors/animals/cow.svg" alt="Cow icon" class="icon-animal">
+    </div>
+    <div class="card-animal__content">
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Edad</span>
+            <span class="card-animal__element-value">2 años y 6 meses</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Sexo</span>
+            <span class="card-animal__element-value">Hembra</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Situación</span>
+            <span class="card-animal__element-value">Estabulado</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Salud</span>
+            <span class="card-animal__element-value">En tratamiento</span>
+        </div>
     </div>
 </section>
 
