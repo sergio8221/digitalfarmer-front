@@ -39,10 +39,15 @@
 </section>
 
 <!-- Animal card -->
-<section class="card card-animal elevation-z2" [ngClass]="{'card-animal--shown': expandAnimal}" (click)="expandAnimal = !expandAnimal">
+<section class="card card-animal elevation-z2" *ngFor="let animal of animalList"
+    [ngClass]="{'card-animal--shown': animal.id == expandAnimalId}" (click)="expandAnimal(animal.id)">
     <div class="card-animal__header">
-        <h2>75639 - Bonita</h2>
-        <img src="../../../assets/vectors/animals/cow.svg" alt="Cow icon" class="icon-animal">
+        <h2>
+            <span *ngIf="animal.code">{{animal.code}}</span>
+            <span *ngIf="animal.code && animal.name"> - </span>
+            <span *ngIf="animal.name">{{animal.name}}</span>
+        </h2>
+        <img src="../../../assets/vectors/animals/{{animal.species}}.svg" [alt]="animal.species" class="icon-animal">
     </div>
     <div class="card-animal__content">
         <div class="card-animal__element">
@@ -51,15 +56,15 @@
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Sexo</span>
-            <span class="card-animal__element-value">Hembra</span>
+            <span class="card-animal__element-value">{{animal.sex}}</span>
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Situación</span>
-            <span class="card-animal__element-value">Estabulado</span>
+            <span class="card-animal__element-value">{{animal.placing}}</span>
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Salud</span>
-            <span class="card-animal__element-value">En tratamiento</span>
+            <span class="card-animal__element-value">{{animal.health}}</span>
         </div>
     </div>
 </section>

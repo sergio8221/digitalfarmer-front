@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Animal } from 'src/app/interfaces/animals.interface';
+import { AnimalsService } from 'src/app/services/animals/animals.service';
 
 @Component({
   selector: 'app-animals-list',
@@ -18,14 +20,19 @@ export class AnimalsListComponent implements OnInit {
   /**
    * Expand animal card?
    */
-  expandAnimal: boolean;
+  expandAnimalId: number;
 
-  constructor() {
+  /**
+   * List of animals loaded
+   */
+  animalList: Animal[];
+
+  constructor(private animalsService: AnimalsService) {
     this.showFilters = false;
-    this.expandAnimal = false;
   }
 
   ngOnInit() {
+    this.animalList = this.animalsService.animalList;
   }
 
   /**
@@ -33,6 +40,14 @@ export class AnimalsListComponent implements OnInit {
    */
   toggleFilters() {
     this.showFilters = !this.showFilters;
+  }
+
+  /**
+   * Expand clicked animal card
+   * @param idAnimal Animal id
+   */
+  expandAnimal(idAnimal: number) {
+    this.expandAnimalId = (this.expandAnimalId != idAnimal) ? idAnimal : -1;
   }
 
 }
