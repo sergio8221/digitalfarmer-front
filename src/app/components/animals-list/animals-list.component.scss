@@ -1,0 +1,56 @@
+//> Imports
+
+@import '../../../assets/styles/variables';
+
+//> Animal card
+
+.card-animal {
+  background-color: $color-secondary-dark;
+  height: 4rem;
+  transition: height .5s ease-out;
+
+  &--shown {
+    height: 11rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+
+    h2 {
+      font-weight: 400;
+      letter-spacing: .06rem;
+    }
+
+    img {
+      height: 3rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    div {
+      border-left: 2px solid $color-white;
+      padding-left: .5rem;
+      width: 40%;
+      margin-top: .5rem;
+
+      .card-animal__element-title {
+        display: inline-block;
+        width: 100%;
+        font-size: .6rem;
+      }
+
+      .card-animal__element-value {
+        font-size: 1rem;
+      }
+    }
+  }
+}

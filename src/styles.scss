@@ -1,0 +1,267 @@
+/* You can add global styles to this file, and also import other style files */
+
+//> Imports
+
+@import './assets/styles/variables';
+
+//> Resets
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: $color-grey-light;
+  outline: none;
+}
+
+//> Structure
+
+.app-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 5rem;
+  background-color: $color-secondary-light;
+  /* background-image: url(./assets/vectors/grass-background.svg);
+  background-position: 0% 100%;
+  background-size: 200% auto;
+  background-repeat: no-repeat; */
+  background-image: url(./assets/img/background-autumn.jpg);
+  background-size: cover;
+}
+
+//> Elevation effects
+
+.elevation-z1 {
+  box-shadow: 0 3px 6px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+.elevation-z2 {
+  box-shadow: 0 5px 8px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+.elevation-z3 {
+  box-shadow: 0 8px 10px 0 rgba($color: $color-black, $alpha: .5);
+}
+
+//> Card styles
+
+.card {
+  width: 90%;
+  margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-main {
+  height: 7rem;
+}
+
+.card-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $color-secondary-dark;
+  background-size: 110% auto;
+  filter: blur(2px);
+}
+
+.card-animals::before {
+  background-image: url(./assets/img/animals/animal01.jpg);
+  background-position: 0% 30%;
+}
+
+.card-crops::before {
+  background-image: url(./assets/img/animals/animal02.jpg);
+  background-position: 0% 40%;
+}
+
+.card-machinery::before {
+  background-image: url(./assets/img/animals/animal03.jpg);
+  background-position: 0% 50%;
+}
+
+.card-farm::before {
+  background-image: url(./assets/img/animals/animal04.jpg);
+  background-position: 0% 30%;
+}
+
+.card-other::before {
+  background-image: url(./assets/img/general/general01.jpg);
+  background-position: 0% 30%;
+}
+
+.card-other2::before {
+  background-image: url(./assets/img/general/general02.jpg);
+  background-position: 0% 30%;
+}
+
+
+//> Cards content
+
+.card__content {
+  background-color: rgba($color: $color-primary-dark, $alpha: .5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.card__column {
+  flex: 1 1 50%;
+  height: 100%;
+}
+
+.card__column--right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__column--right {
+  font-size: 5rem;
+}
+
+.card__content h2 {
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin-bottom: .3rem;
+}
+
+.card__line {
+  width: 100%;
+  margin-left: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.card__info {
+  flex: 1 1 50%;
+}
+
+.card__info>i {
+  font-size: 1rem;
+  width: 1.3rem;
+}
+
+//> Filter card
+
+.card-filter {
+  background-color: $color-primary;
+}
+
+// Header
+
+.card-filter__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.card-filter__btn-back {
+  font-size: 2rem;
+}
+
+.card-filter__btn-title {
+  font-size: 1.3rem;
+
+  span {
+    letter-spacing: .06em;
+  }
+}
+
+.card-filter__arrow {
+  margin-left: .5rem;
+  transform: scaleY(1);
+  transform-origin: center;
+  transition: transform .3s ease-out;
+
+  &--shown {
+    transform: scaleY(-1);
+  }
+}
+
+// Content
+
+.card-filter__content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  height: 0;
+  opacity: 0;
+  transition: height .5s ease-out, opacity .5s ease-out;
+
+  &--shown {
+    opacity: 1;
+    height: 10rem;
+  }
+}
+
+.card-filter__element {
+  font-size: 1.3rem;
+  padding: .5rem 1rem;
+  width: 50%;
+
+  span {
+    margin-left: .5rem;
+  }
+}
+
+//> Add item button
+
+.btn-add {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: fixed;
+  bottom: 5rem;
+  right: .5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: $color-secondary-light;
+  animation: btn-entering .7s ease-out;
+
+  i {
+    font-size: 1.5rem;
+    animation: btn-rotating .7s ease-out
+  }
+}
+
+@keyframes btn-entering {
+  0% {
+    transform: translateX(4rem);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes btn-rotating {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}

@@ -1,0 +1,75 @@
+<!-- Filter card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/animals']"><i
+                class="fas fa-arrow-left"></i></button>
+        <button type="button" class="card-filter__btn-title" (click)="toggleFilters()">
+            <span>FILTRAR</span>
+            <i class="fas fa-arrow-down card-filter__arrow" [ngClass]="{'card-filter__arrow--shown': showFilters}"></i>
+        </button>
+    </div>
+    <!-- Content -->
+    <div class="card-filter__content" [ngClass]="{'card-filter__content--shown': showFilters}">
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Adultos</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Crías</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Machos</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Hembras</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>Estabulados</span>
+        </div>
+        <div class="card-filter__element">
+            <i class="far fa-check-square"></i>
+            <span>En pasto</span>
+        </div>
+    </div>
+</section>
+
+<!-- Animal card -->
+<section class="card card-animal elevation-z2" *ngFor="let animal of animalList"
+    [ngClass]="{'card-animal--shown': animal.id == expandAnimalId}" (click)="expandAnimal(animal.id)">
+    <div class="card-animal__header">
+        <h2>
+            <span *ngIf="animal.code">{{animal.code}}</span>
+            <span *ngIf="animal.code && animal.name"> - </span>
+            <span *ngIf="animal.name">{{animal.name}}</span>
+        </h2>
+        <img src="../../../assets/vectors/animals/{{animal.species}}.svg" [alt]="animal.species" class="icon-animal">
+    </div>
+    <div class="card-animal__content">
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Edad</span>
+            <span class="card-animal__element-value">2 años y 6 meses</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Sexo</span>
+            <span class="card-animal__element-value">{{animal.sex}}</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Situación</span>
+            <span class="card-animal__element-value">{{animal.placing}}</span>
+        </div>
+        <div class="card-animal__element">
+            <span class="card-animal__element-title">Salud</span>
+            <span class="card-animal__element-value">{{animal.health}}</span>
+        </div>
+    </div>
+</section>
+
+<!-- Add button -->
+<button class="btn-add elevation-z2" type="button">
+    <i class="fas fa-plus"></i>
+</button>
