@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Animal } from 'src/app/interfaces/animals.interface';
-import { AnimalsService } from 'src/app/services/animals/animals.service';
+import { AnimalsService, AnimalDB } from 'src/app/services/animals/animals.service';
 
 @Component({
   selector: 'app-animals-list',
@@ -32,7 +32,26 @@ export class AnimalsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.animalList = this.animalsService.animalList;
+    this.getAnimals();
+  }
+
+  getAnimals() {
+    this.animalsService.getAll().subscribe((data: AnimalDB[]) => {
+      this.animalList = [];
+      data.forEach(animalDB => {
+        let animal: Animal = {
+          id: animalDB.id,
+          code: animalDB.code,
+          name: animalDB.name,
+          sex: animalDB.sex,
+          born: animalDB.born,
+          species: 'cow',
+          health: 'Sano',
+          placing: 'Pasto'
+        }
+        this.animalList.push(animal);
+      })
+    });
   }
 
   /**
