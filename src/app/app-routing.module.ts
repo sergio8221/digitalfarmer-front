@@ -7,16 +7,18 @@ import { AnimalsComponent } from './components/animals/animals.component';
 import { CropsComponent } from './components/crops/crops.component';
 import { MachineryComponent } from './components/machinery/machinery.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
-  { path: 'main', component: MainComponent },
-  { path: 'animals', component: AnimalsComponent },
-  { path: 'animals-list', component: AnimalsListComponent },
-  { path: 'crops', component: CropsComponent },
-  { path: 'machinery', component: MachineryComponent },
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: '**', redirectTo: 'main', pathMatch: 'full' }
+  { path: 'login', component: LoginComponent, data: { animation: 'loginPage' } },
+  { path: 'main', component: MainComponent, data: { animation: 'mainPage' } },
+  { path: 'animals', component: AnimalsComponent, data: { animation: 'animalsPage' } },
+  { path: 'animals-list', component: AnimalsListComponent, data: { animation: 'animalsListPage' } },
+  { path: 'crops', component: CropsComponent, data: { animation: 'cropsPage' } },
+  { path: 'machinery', component: MachineryComponent, data: { animation: 'machineryPage' } },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
