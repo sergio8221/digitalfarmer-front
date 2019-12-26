@@ -1,0 +1,16 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <h2 class="app-title">Digital Farmer</h2>
+    <div class="form-row">
+        <input class="text-input text-input--center" placeholder="Username" formControlName="username">
+    </div>
+    <div class="form-row">
+        <input class="text-input text-input--center" type="password" placeholder="Password" formControlName="pass">
+    </div>
+    <div class="form-row">
+        <button class="btn-accept" type="submit">Login</button>
+    </div>
+    <div class="form-row">
+        <!-- Errors -->
+        <span *ngIf="errorMsg" class="error-msg">{{errorMsg}}</span>
+    </div>
+</form>

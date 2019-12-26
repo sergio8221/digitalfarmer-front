@@ -1,11 +1,11 @@
 <!-- Main section -->
-<main>
-  <router-outlet></router-outlet>
+<main [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 
 <!-- Nav section -->
-<nav>
-  <button class="nav__btn" type="button" [routerLink]="['/fav']" routerLinkActive="router-link-active"><i
+<nav *ngIf="currRoute != '/login'">
+  <button class="nav__btn" type="button" [routerLink]="['/main']" routerLinkActive="router-link-active"><i
       class="fas fa-star"></i></button>
   <button class="nav__btn" type="button" [routerLink]="['/animals']" routerLinkActive="router-link-active"><i
       class="fas fa-horse"></i></button>
