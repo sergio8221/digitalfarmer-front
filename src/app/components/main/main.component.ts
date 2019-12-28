@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-main',

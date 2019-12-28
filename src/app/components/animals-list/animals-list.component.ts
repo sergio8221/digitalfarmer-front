@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimalsService, Animal } from 'src/app/services/animals/animals.service';
+import { AnimalsService, Animal, Placing } from 'src/app/services/animals/animals.service';
 
 @Component({
   selector: 'app-animals-list',
@@ -10,6 +10,8 @@ import { AnimalsService, Animal } from 'src/app/services/animals/animals.service
   }
 })
 export class AnimalsListComponent implements OnInit {
+
+
 
   /**
    * Show filters?
@@ -22,6 +24,11 @@ export class AnimalsListComponent implements OnInit {
   expandAnimalId: number;
 
   /**
+   * Loaded placings
+   */
+  placings: Placing[];
+
+  /**
    * List of animals loaded
    */
   animalList: Animal[];
@@ -31,12 +38,49 @@ export class AnimalsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAnimals();
+    this.loadPlacings();
   }
 
-  getAnimals() {
-    this.animalsService.getAllAnimals().subscribe((data: Animal[]) => {
-      this.animalList = data;
+  loadPlacings() {
+    // Reset placings list
+    this.placings = [];
+
+    // Load placings depending on selected
+    if (!this.animalsService.selectedPlacingId || this.animalsService.selectedPlacingId == 0) {
+      this.animalsService.getAllPlacings().subscribe((data: Placing[]) => {
+        this.placings = data;
+        this.parseAnimals();
+      });
+    } else {
+      this.animalsService.getPlacingById(this.animalsService.selectedPlacingId).subscribe((data: Placing) => {
+        this.placings.push(data);
+        this.parseAnimals();
+      })
+    }
+  }
+
+  parseAnimals() {
+    // Reset animals list
+    this.animalList = [];
+
+    // Parse animals list from placings
+    this.placings.forEach(placing => {
+      placing.animals.forEach(animal => {
+        // Save placing info on animal object
+        animal.placing = {
+          id: placing.id,
+          name: placing.name
+        };
+
+        // todo Update animal health info
+        animal.health = 0;
+        if (animal.treatments && animal.treatments.length > 0) {
+          animal.health = 1;
+        }
+
+        //Add animal to list
+        this.animalList.push(animal);
+      });
     });
   }
 

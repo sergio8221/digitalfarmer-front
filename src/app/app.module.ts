@@ -15,6 +15,7 @@ import { CropsComponent } from './components/crops/crops.component';
 import { MachineryComponent } from './components/machinery/machinery.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { AddPlacingComponent } from './components/animals/add-placing/add-placing.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './components/login/login.component';
     CropsComponent,
     MachineryComponent,
     AnimalsListComponent,
-    LoginComponent
+    LoginComponent,
+    AddPlacingComponent
   ],
   imports: [
     BrowserModule,

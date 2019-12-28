@@ -61,13 +61,12 @@
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Situación</span>
-            <span class="card-animal__element-value">Pasto</span>
+            <span class="card-animal__element-value">{{animal.placing.name}}</span>
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Salud</span>
-            <span class="card-animal__element-value"
-                *ngIf="!animal.treatments || animal.treatments.length == 0">Sano</span>
-            <span class="card-animal__element-value" *ngIf="animal.treatments.length > 0">En tratamiento</span>
+            <span class="card-animal__element-value" *ngIf="!animal.treatments || animal.length == 0">Sano</span>
+            <span class="card-animal__element-value" *ngIf="animal.health == 1">En tratamiento</span>
         </div>
     </div>
 </section>

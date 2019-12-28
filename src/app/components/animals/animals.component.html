@@ -1,4 +1,5 @@
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
+<!-- >All animals -->
+<section class="card card-animals card-main elevation-z2" (click)="selectPlacing(0)">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Lista completa</h2>
@@ -21,104 +22,14 @@
     </div>
 </section>
 
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
+<!-- >List of placings -->
+<section class="card card-animals card-main elevation-z2" *ngFor="let placing of placings"
+    (click)="selectPlacing(placing.id)">
     <div class="card__content">
         <div class="card__column card__column--left">
-            <h2>Adultos</h2>
+            <h2>{{placing.name}}</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
-            </div>
-        </div>
-        <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
-        </div>
-    </div>
-</section>
-
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
-    <div class="card__content">
-        <div class="card__column card__column--left">
-            <h2>Crías</h2>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
-            </div>
-        </div>
-        <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
-        </div>
-    </div>
-</section>
-
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
-    <div class="card__content">
-        <div class="card__column card__column--left">
-            <h2>Estabulados</h2>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
-            </div>
-        </div>
-        <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
-        </div>
-    </div>
-</section>
-
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
-    <div class="card__content">
-        <div class="card__column card__column--left">
-            <h2>En pasto</h2>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
-            </div>
-        </div>
-        <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
-        </div>
-    </div>
-</section>
-
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/animals-list']">
-    <div class="card__content">
-        <div class="card__column card__column--left">
-            <h2>En tratamiento</h2>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
+                <div class="card__info"><i class="fas fa-info"></i>{{placing.animals.length}}</div>
                 <div class="card__info"><i class="fas fa-egg"></i>15</div>
             </div>
             <div class="card__line">
@@ -137,6 +48,9 @@
 </section>
 
 <!-- Add button -->
-<button class="btn-add elevation-z2" type="button">
+<button class="btn-add elevation-z2" type="button" (click)="create()">
     <i class="fas fa-plus"></i>
 </button>
+
+<app-add-placing *ngIf="createModal" [placingUpdate]="placingUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-placing>

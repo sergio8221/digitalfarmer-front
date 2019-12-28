@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { interval, throwError, of, Observable } from 'rxjs';
 import { retryWhen, flatMap, map } from 'rxjs/operators';
+import { Farm } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,15 @@ export class AnimalsService {
   constructor(private http: HttpClient) {
     this.endpoint = environment.endpoint;
   }
+
+  /* -----------------------------------------------------------------------
+  !------------------------CURRENT DATA--------------------------------------
+  --------------------------------------------------------------------------- */
+
+  /**
+   * Selected placing to load animal list
+   */
+  selectedPlacingId: number;
 
   /* -----------------------------------------------------------------------
   !--------------------------------AUX--------------------------------------
@@ -208,7 +218,8 @@ export class AnimalsService {
 export interface Placing {
   id: number,
   name: string,
-  animals?: Animal[]
+  animals?: Animal[],
+  farm?: Farm
 }
 
 /**
@@ -221,7 +232,9 @@ export interface Animal {
   born: Date,
   sex: string,
   species?: Species,
-  treatments?: Treatment[]
+  treatments?: Treatment[],
+  placing?: Placing,
+  health?: number
 }
 
 /**
