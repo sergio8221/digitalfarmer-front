@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Placing, AnimalsService } from 'src/app/services/animals/animals.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LanguageService, Msg } from 'src/app/services/language/language.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-add-placing',
@@ -16,7 +17,7 @@ export class AddPlacingComponent implements OnInit {
 
   createForm: FormGroup;
 
-  constructor(private animalsService: AnimalsService, private languageService: LanguageService) {
+  constructor(private animalsService: AnimalsService, private languageService: LanguageService, private usersService: UsersService) {
     // Init form
     this.createForm = new FormGroup({
       name: new FormControl('', [
@@ -28,6 +29,9 @@ export class AddPlacingComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.placingUpdate) {
+      this.loadUpdate();
+    }
   }
 
   /**
@@ -39,11 +43,10 @@ export class AddPlacingComponent implements OnInit {
       id: null,
       name: this.createForm.get('name').value,
       farm: {
-        // todo mirar el idFarm
-        id: 1,
+        id: this.usersService.currFarm.id,
         location: null
       }
-    }
+    };
 
     // Send object to database
     this.animalsService.createPlacing(newPlacing).subscribe(data => {
@@ -52,14 +55,39 @@ export class AddPlacingComponent implements OnInit {
     }, error => {
       // Emit error
       this.returnMsg.emit(this.languageService.msgs.createError);
-    })
+    });
 
+  }
+
+  /**
+   * Fill form with update info
+   */
+  loadUpdate() {
+    this.createForm.get('name').setValue(this.placingUpdate.name);
   }
 
   /**
    * Update object on database
    */
   update() {
+    // Create object
+    let newPlacing: Placing = {
+      id: this.placingUpdate.id,
+      name: this.createForm.get('name').value,
+      farm: {
+        id: this.usersService.currFarm.id,
+        location: null
+      }
+    };
+
+    // Send object to database
+    this.animalsService.updatePlacing(newPlacing).subscribe(data => {
+      // Emit success
+      this.returnMsg.emit(this.languageService.msgs.updateSuccess);
+    }, error => {
+      // Emit error
+      this.returnMsg.emit(this.languageService.msgs.updateError);
+    });
 
   }
 
@@ -67,7 +95,14 @@ export class AddPlacingComponent implements OnInit {
    * Delete object on database
    */
   delete() {
-
+    // Delete object from database
+    this.animalsService.deletePlacing(this.placingUpdate.id).subscribe(data => {
+      // Emit success
+      this.returnMsg.emit(this.languageService.msgs.deleteSuccess);
+    }, error => {
+      // Emit error
+      this.returnMsg.emit(this.languageService.msgs.deleteError);
+    });
   }
 
   /**

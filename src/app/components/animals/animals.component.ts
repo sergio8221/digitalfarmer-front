@@ -62,6 +62,16 @@ export class AnimalsComponent implements OnInit {
   }
 
   /**
+   * Open update modal
+   * @param placing Object to update
+   */
+  update($event: MouseEvent, placing: Placing) {
+    $event.stopPropagation();
+    this.placingUpdate = placing;
+    this.createModal = true;
+  }
+
+  /**
    * On modal close
    * @param msg Message returned
    */
