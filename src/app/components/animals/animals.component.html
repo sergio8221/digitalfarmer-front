@@ -4,26 +4,27 @@
         <div class="card__column card__column--left">
             <h2>Lista completa</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info"><i class="fas fa-info"></i>{{totalSummary?.animals}}</div>
+                <div class="card__info"><i class="fas fa-egg"></i>{{totalSummary?.youngs}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
+                <div class="card__info"><i class="fas fa-mars"></i>{{totalSummary?.male}}</div>
+                <div class="card__info"><i class="fas fa-venus"></i>{{totalSummary?.female}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
+                <div class="card__info"><i class="fas fa-syringe"></i>{{totalSummary?.ill}}</div>
                 <div class="card__info"></div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="pie-chart" echarts [options]="echartsOptions[0]" *ngIf="echartsOptions && echartsOptions[0]"
+                style="height: 6rem; width:8rem;"></div>
         </div>
     </div>
 </section>
 
 <!-- >List of placings -->
-<section class="card card-animals card-main elevation-z2" *ngFor="let placing of placings"
+<section class="card card-animals card-main elevation-z2" *ngFor="let placing of placings; let i = index"
     (click)="selectPlacing(placing.id)">
     <div class="card__content">
         <div class="card__column card__column--left">
@@ -32,20 +33,21 @@
                         class="fas fa-edit"></i></button>
             </h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>{{placing.animals.length}}</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info"><i class="fas fa-info"></i>{{placing.summary?.animals}}</div>
+                <div class="card__info"><i class="fas fa-egg"></i>{{placing.summary?.youngs}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
+                <div class="card__info"><i class="fas fa-mars"></i>{{placing.summary?.male}}</div>
+                <div class="card__info"><i class="fas fa-venus"></i>{{placing.summary?.female}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
+                <div class="card__info"><i class="fas fa-syringe"></i>{{placing.summary?.ill}}</div>
                 <div class="card__info"></div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="pie-chart" echarts [options]="echartsOptions[i+1]" *ngIf="echartsOptions && echartsOptions[i+1]"
+                style="height: 6rem; width:8rem;"></div>
         </div>
     </div>
 </section>

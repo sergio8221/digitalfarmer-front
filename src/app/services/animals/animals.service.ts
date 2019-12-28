@@ -24,6 +24,25 @@ export class AnimalsService {
   selectedPlacingId: number;
 
   /* -----------------------------------------------------------------------
+  !--------------------------FUNCTIONS--------------------------------------
+  --------------------------------------------------------------------------- */
+
+  /**
+   * Calculate if animal is less than one year old
+   * @param date Born date
+   */
+  isYoung(born: Date): boolean {
+    let now = new Date();
+
+    // If difference is less than a year return true
+    if (((now.getTime() - born.getTime()) / (1000 * 60 * 60 * 24)) < 365) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /* -----------------------------------------------------------------------
   !--------------------------------AUX--------------------------------------
   --------------------------------------------------------------------------- */
 
@@ -220,6 +239,7 @@ export interface Placing {
   name: string,
   animals?: Animal[],
   farm?: Farm
+  summary?: PlacingSummary
 }
 
 /**
@@ -251,4 +271,15 @@ export interface Species {
 export interface Treatment {
   id: number,
   description: string
+}
+
+/**
+ * Placing summary
+ */
+export interface PlacingSummary {
+  animals: number,
+  youngs: number,
+  male: number,
+  female: number,
+  ill: number
 }

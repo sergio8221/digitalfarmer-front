@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +36,8 @@ import { MsgModalComponent } from './components/shared/msg-modal/msg-modal.compo
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxEchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

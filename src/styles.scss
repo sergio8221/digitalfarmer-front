@@ -122,10 +122,13 @@
       flex-wrap: nowrap;
       justify-content: center;
       align-items: center;
-    }
-
-    &--right {
       font-size: 5rem;
+      position: relative;
+
+      pie-chart{
+        height: 6rem;
+        width: 6rem;
+      }
     }
 
     h2 {
