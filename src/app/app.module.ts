@@ -16,6 +16,7 @@ import { MachineryComponent } from './components/machinery/machinery.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddPlacingComponent } from './components/animals/add-placing/add-placing.component';
+import { MsgModalComponent } from './components/shared/msg-modal/msg-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AddPlacingComponent } from './components/animals/add-placing/add-placin
     MachineryComponent,
     AnimalsListComponent,
     LoginComponent,
-    AddPlacingComponent
+    AddPlacingComponent,
+    MsgModalComponent
   ],
   imports: [
     BrowserModule,

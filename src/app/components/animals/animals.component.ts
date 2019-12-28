@@ -28,6 +28,11 @@ export class AnimalsComponent implements OnInit {
    */
   placingUpdate: Placing;
 
+  /**
+   * Message to show on msg-modal
+   */
+  msg: Msg;
+
   constructor(private animalsService: AnimalsService, private router: Router) { }
 
   ngOnInit() {
@@ -82,7 +87,22 @@ export class AnimalsComponent implements OnInit {
     if (msg) {
       // Reload updated info
       this.loadPlacings();
+
+      // Show message
+      this.showMessage(msg);
     }
+  }
+
+  /**
+   * Show message modal
+   * @param msg Message object
+   */
+  showMessage(msg: Msg) {
+    this.msg = msg;
+    // Set message to show
+    setTimeout(() => {
+      this.msg = null;
+    }, 2000);
   }
 
 }

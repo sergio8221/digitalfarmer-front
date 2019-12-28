@@ -1,0 +1,7 @@
+<div class="modal-backdrop">
+    <div class="msg-modal">
+        <i class="far fa-check-circle" *ngIf="msg.type == 'S'"></i>
+        <i class="far fa-times-circle" *ngIf="msg.type == 'E'"></i>
+        <span>{{msg.msg}}</span>
+    </div>
+</div>

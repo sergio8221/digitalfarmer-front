@@ -28,7 +28,8 @@
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>{{placing.name}}
-                <button type="button" class="btn-edit" (click)="update($event, placing)"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn-edit" (click)="update($event, placing)"><i
+                        class="fas fa-edit"></i></button>
             </h2>
             <div class="card__line">
                 <div class="card__info"><i class="fas fa-info"></i>{{placing.animals.length}}</div>
@@ -56,3 +57,5 @@
 
 <app-add-placing *ngIf="createModal" [placingUpdate]="placingUpdate" (returnMsg)="onModalReturn($event)">
 </app-add-placing>
+
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

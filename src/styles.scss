@@ -285,6 +285,27 @@
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
+  animation: fade-in .3s ease-out;
+
+  .msg-modal {
+    padding: 1.5rem;
+    background-color: $color-primary;
+    border-radius: .5rem;
+    animation: drop-in 300ms ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      font-size: 2.7rem;
+      animation: rotate-in 500ms ease-out;
+    }
+
+    span {
+      font-size: 1.2rem;
+      margin-left: .5rem;
+    }
+  }
 }
 
 .form {
@@ -292,6 +313,7 @@
   background-color: $color-primary;
   padding: 1rem 1.5rem;
   border-radius: .5rem;
+  position: relative;
 
   .app-title {
     font-family: 'Pacifico', cursive;
@@ -305,6 +327,19 @@
     text-align: center;
     margin-bottom: 1rem;
     font-size: 1.5rem;
+  }
+
+  .btn-close {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    i {
+      font-size: 2rem;
+      color: $color-secondary-dark;
+    }
   }
 
   .form-row {
@@ -327,24 +362,64 @@
       }
     }
 
-    .btn-accept {
-      padding: .3rem 1rem;
-      border: none;
-      border-radius: .3rem;
-      color: $color-secondary-dark;
-      background-color: $color-primary;
-      border: 2px solid $color-secondary-dark;
-      font-size: 1.5rem;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $color-secondary-dark;
-        color: $color-primary;
-      }
-    }
-
     .error-msg {
       color: $color-secondary-light;
     }
+  }
+
+  .controls-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: .5rem 0;
+
+    .btn-accept {
+      padding: .3rem 1rem;
+      margin-left: .5rem;
+      border: none;
+      border-radius: .3rem;
+      color: $color-white;
+      background-color: $color-secondary-dark;
+      box-shadow: 0 3px 6px 0 rgba($color: $color-black, $alpha: .3);
+      font-size: 1.3rem;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 5px 8px 0 rgba($color: $color-black, $alpha: .3);
+      }
+    }
+  }
+}
+
+
+//> Common animations
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes drop-in {
+  0% {
+    transform: translateY(-100px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotate-in {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
   }
 }
