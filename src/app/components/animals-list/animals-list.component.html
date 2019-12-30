@@ -2,7 +2,7 @@
 <section class="card card-filter elevation-z2">
     <!-- Header -->
     <div class="card-filter__header">
-        <button type="button" class="card-filter__btn-back" [routerLink]="['/animals']"><i
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/placings']"><i
                 class="fas fa-arrow-left"></i></button>
         <button type="button" class="card-filter__btn-title" (click)="toggleFilters()">
             <span>FILTRAR</span>
@@ -65,13 +65,23 @@
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Salud</span>
-            <span class="card-animal__element-value" *ngIf="!animal.treatments || animal.length == 0">Sano</span>
+            <span class="card-animal__element-value" *ngIf="animal.health == 0">Sano</span>
             <span class="card-animal__element-value" *ngIf="animal.health == 1">En tratamiento</span>
         </div>
     </div>
+    <div class="card-animal__controls">
+        <button type="button" class="btn-edit" (click)="update($event, animal)"><i class="fas fa-edit"></i></button>
+    </div>
 </section>
 
-<!-- Add button -->
-<button class="btn-add elevation-z2" type="button">
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
     <i class="fas fa-plus"></i>
 </button>
+
+<!-- >Create modal -->
+<app-add-animal *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-animal>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimalsService, Animal, Placing } from 'src/app/services/animals/animals.service';
+import { Msg } from 'src/app/services/language/language.service';
 
 @Component({
   selector: 'app-animals-list',
@@ -32,6 +33,25 @@ export class AnimalsListComponent implements OnInit {
    * List of animals loaded
    */
   animalList: Animal[];
+
+  //> Management
+
+  /**
+  * Show create modal
+  */
+  createModal: boolean;
+
+  /**
+   * Object to update
+   */
+  objectUpdate: Animal;
+
+  //> Messages
+
+  /**
+   * Message to show on msg-modal
+   */
+  msg: Msg;
 
   constructor(private animalsService: AnimalsService) {
     this.showFilters = false;
@@ -97,6 +117,55 @@ export class AnimalsListComponent implements OnInit {
    */
   expandAnimal(idAnimal: number) {
     this.expandAnimalId = (this.expandAnimalId != idAnimal) ? idAnimal : -1;
+  }
+
+  //> Management
+
+  /**
+   * Open creation modal
+   */
+  create() {
+    this.objectUpdate = null;
+    this.createModal = true;
+  }
+
+  /**
+   * Open update modal
+   * @param animal Object to update
+   */
+  update($event: MouseEvent, animal: Animal) {
+    $event.stopPropagation();
+    this.objectUpdate = animal;
+    this.createModal = true;
+  }
+
+  /**
+   * On modal close
+   * @param msg Message returned
+   */
+  onModalReturn(msg: Msg) {
+    this.createModal = false;
+    this.objectUpdate = null;
+
+    if (msg) {
+      // Reload updated info
+      this.loadPlacings();
+
+      // Show message
+      this.showMessage(msg);
+    }
+  }
+
+  /**
+   * Show message modal
+   * @param msg Message object
+   */
+  showMessage(msg: Msg) {
+    this.msg = msg;
+    // Set message to show
+    setTimeout(() => {
+      this.msg = null;
+    }, 2000);
   }
 
 }

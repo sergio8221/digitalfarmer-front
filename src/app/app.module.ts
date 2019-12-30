@@ -11,25 +11,27 @@ import { AppRoutingModule } from './app-routing.module';
 // Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { AnimalsComponent } from './components/animals/animals.component';
+import { PlacingsComponent } from './components/placings/placings.component';
 import { CropsComponent } from './components/crops/crops.component';
 import { MachineryComponent } from './components/machinery/machinery.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 import { LoginComponent } from './components/login/login.component';
-import { AddPlacingComponent } from './components/animals/add-placing/add-placing.component';
+import { AddPlacingComponent } from './components/placings/add-placing/add-placing.component';
 import { MsgModalComponent } from './components/shared/msg-modal/msg-modal.component';
+import { AddAnimalComponent } from './components/animals-list/add-animal/add-animal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    AnimalsComponent,
+    PlacingsComponent,
     CropsComponent,
     MachineryComponent,
     AnimalsListComponent,
     LoginComponent,
     AddPlacingComponent,
-    MsgModalComponent
+    MsgModalComponent,
+    AddAnimalComponent
   ],
   imports: [
     BrowserModule,

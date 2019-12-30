@@ -16,9 +16,14 @@
                 <div class="card__info"></div>
             </div>
         </div>
+
         <div class="card__column card__column--right">
-            <div class="pie-chart" echarts [options]="echartsOptions[0]" *ngIf="echartsOptions && echartsOptions[0]"
-                style="height: 6rem; width:8rem;"></div>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="echartsOptions[0]"
+                    *ngIf="echartsOptions && echartsOptions[0]"></div>
+                <i class="fas fa-mars sex-symbol male-symbol"></i>
+                <i class="fas fa-venus sex-symbol female-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
@@ -46,18 +51,24 @@
             </div>
         </div>
         <div class="card__column card__column--right">
-            <div class="pie-chart" echarts [options]="echartsOptions[i+1]" *ngIf="echartsOptions && echartsOptions[i+1]"
-                style="height: 6rem; width:8rem;"></div>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="echartsOptions[i+1]"
+                    *ngIf="echartsOptions && echartsOptions[i+1]"></div>
+                <i class="fas fa-mars sex-symbol male-symbol"></i>
+                <i class="fas fa-venus sex-symbol female-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Add button -->
+<!-- >Add button -->
 <button class="btn-add elevation-z2" type="button" (click)="create()">
     <i class="fas fa-plus"></i>
 </button>
 
+<!-- >Create modal -->
 <app-add-placing *ngIf="createModal" [placingUpdate]="placingUpdate" (returnMsg)="onModalReturn($event)">
 </app-add-placing>
 
+<!-- >Message modal -->
 <app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

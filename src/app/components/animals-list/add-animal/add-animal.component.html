@@ -1,0 +1,45 @@
+<div class="modal-backdrop">
+    <form class="form" [formGroup]="createForm">
+        <h2 class="form-title">Animal</h2>
+        <button class="btn-close" type="button" (click)="cancel()"><i class="far fa-window-close"></i></button>
+        <div class="form-row">
+            <input class="text-input" placeholder="Nombre" formControlName="name">
+        </div>
+        <div class="form-row">
+            <input class="text-input" placeholder="Código" formControlName="code">
+        </div>
+        <div class="form-row">
+            <select class="text-input" formControlName="sex">
+                <option value="F">Hembra</option>
+                <option value="M">Macho</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <input class="text-input" type="date" formControlName="born">
+        </div>
+        <div class="form-row">
+            <select class="text-input" formControlName="placing">
+                <option *ngFor="let placing of placingsList;" [value]="placing.id">
+                    {{placing.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-row">
+            <select class="text-input" formControlName="species">
+                <option *ngFor="let species of speciesList" [value]="species.id">
+                    {{species.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="controls-row">
+            <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="delete()">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="update()">Actualizar</button>
+            <button class="btn-accept" *ngIf="!objectUpdate" type="button" (click)="create()">Crear</button>
+        </div>
+        <div class="form-row">
+            <!-- Errors -->
+            <span *ngIf="errorMsg" class="error-msg">{{errorMsg}}</span>
+        </div>
+    </form>
+</div>

@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { Msg } from 'src/app/services/language/language.service';
 
 @Component({
-  selector: 'app-animals',
-  templateUrl: './animals.component.html',
-  styleUrls: ['./animals.component.scss'],
+  selector: 'app-placings',
+  templateUrl: './placings.component.html',
+  styleUrls: ['./placings.component.scss'],
   host: {
     class: 'app-screen'
   }
 })
-export class AnimalsComponent implements OnInit {
+export class PlacingsComponent implements OnInit {
 
   /**
    * Placings loaded
@@ -31,7 +31,7 @@ export class AnimalsComponent implements OnInit {
   // List of options objects
   echartsOptions: any[];
 
-  //> Create and update
+  //> Management
 
   /**
   * Show create modal
@@ -183,14 +183,14 @@ export class AnimalsComponent implements OnInit {
           {
             name: 'Sexos',
             type: 'pie',
-            radius: ['20%', '90%'],
+            radius: ['30%', '90%'],
             avoidLabelOverlap: false,
             label: {
               normal: {
                 show: true,
                 position: 'inside',
-                formatter: "{b}: {c}",
-                fontSize: 10
+                formatter: "{c}",
+                fontSize: 12
               }
             },
             labelLine: {
@@ -200,7 +200,8 @@ export class AnimalsComponent implements OnInit {
             },
             data: data
           }
-        ]
+        ],
+        color: ['#ffb900', '#ff7730']
       };
 
       // Push to options array
@@ -216,6 +217,8 @@ export class AnimalsComponent implements OnInit {
     this.animalsService.selectedPlacingId = idPlacing;
     this.router.navigate(['animals-list']);
   }
+
+  //> Management
 
   /**
    * Open creation modal
