@@ -54,14 +54,20 @@ export class PlacingsComponent implements OnInit {
 
   ngOnInit() {
     //Get placings
-    this.loadPlacings();
+    if (this.animalsService.selectedFarmId) {
+      this.loadPlacings(this.animalsService.selectedFarmId);
+    } else {
+      this.router.navigate(['main']);
+    }
+
   }
 
   /**
    * Load placings form database
    */
-  loadPlacings() {
-    this.animalsService.getAllPlacings().subscribe((data: Placing[]) => {
+  loadPlacings(idFarm: number) {
+    this.placings = undefined;
+    this.animalsService.getPlacingByFarmId(idFarm).subscribe((data: Placing[]) => {
       this.placings = data;
       this.parsePlacings();
     });
@@ -95,7 +101,7 @@ export class PlacingsComponent implements OnInit {
         this.totalSummary.animals += 1;
 
         // Is young?
-        if (animal.born && this.animalsService.isYoung(animal.born)) {
+        if (animal.born && this.animalsService.isYoung(new Date(animal.born))) {
           placing.summary.youngs += 1;
           this.totalSummary.youngs += 1;
         }
@@ -110,9 +116,19 @@ export class PlacingsComponent implements OnInit {
         }
 
         // Is ill?
-        if (animal.treatments && animal.treatments.length > 0) {
-          placing.summary.ill += 1;
-          this.totalSummary.ill += 1;
+        // Check if animal has open treatments
+        let ill = false;
+        if (animal.treatments) {
+          animal.treatments.forEach(treatment => {
+            if (!treatment.dateEnd) {
+              ill = true;
+            }
+          })
+
+          if (ill) {
+            placing.summary.ill += 1;
+            this.totalSummary.ill += 1;
+          }
         }
       })
     });
@@ -248,7 +264,7 @@ export class PlacingsComponent implements OnInit {
 
     if (msg) {
       // Reload updated info
-      this.loadPlacings();
+      this.loadPlacings(this.animalsService.selectedFarmId);
 
       // Show message
       this.showMessage(msg);

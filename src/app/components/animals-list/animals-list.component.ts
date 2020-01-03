@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimalsService, Animal, Placing } from 'src/app/services/animals/animals.service';
 import { Msg } from 'src/app/services/language/language.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animals-list',
@@ -53,21 +54,29 @@ export class AnimalsListComponent implements OnInit {
    */
   msg: Msg;
 
-  constructor(private animalsService: AnimalsService) {
+  constructor(private animalsService: AnimalsService, private router: Router) {
     this.showFilters = false;
   }
 
   ngOnInit() {
-    this.loadPlacings();
+    //Get placings
+    if (this.animalsService.selectedFarmId) {
+      this.loadPlacings(this.animalsService.selectedFarmId);
+    } else {
+      this.router.navigate(['main']);
+    }
   }
 
-  loadPlacings() {
+  loadPlacings(idFarm: number) {
     // Reset placings list
     this.placings = [];
 
+    // Reset animals list
+    this.animalList = undefined;
+
     // Load placings depending on selected
     if (!this.animalsService.selectedPlacingId || this.animalsService.selectedPlacingId == 0) {
-      this.animalsService.getAllPlacings().subscribe((data: Placing[]) => {
+      this.animalsService.getPlacingByFarmId(idFarm).subscribe((data: Placing[]) => {
         this.placings = data;
         this.parseAnimals();
       });
@@ -86,16 +95,23 @@ export class AnimalsListComponent implements OnInit {
     // Parse animals list from placings
     this.placings.forEach(placing => {
       placing.animals.forEach(animal => {
+        // Parse born date
+        animal.born = new Date(animal.born);
+
         // Save placing info on animal object
         animal.placing = {
           id: placing.id,
           name: placing.name
         };
 
-        // todo Update animal health info
+        // Animal is ill if it has non closed treatments
         animal.health = 0;
-        if (animal.treatments && animal.treatments.length > 0) {
-          animal.health = 1;
+        if (animal.treatments) {
+          animal.treatments.forEach(treatment => {
+            if (!treatment.dateEnd) {
+              animal.health = 1;
+            }
+          })
         }
 
         //Add animal to list
@@ -117,6 +133,16 @@ export class AnimalsListComponent implements OnInit {
    */
   expandAnimal(idAnimal: number) {
     this.expandAnimalId = (this.expandAnimalId != idAnimal) ? idAnimal : -1;
+  }
+
+  /**
+   * Show treatments of an animal
+   * @param idAnimal Id of animal
+   */
+  showTreatments($event: MouseEvent, idAnimal: number) {
+    $event.stopPropagation();
+    this.animalsService.selectedAnimalId = idAnimal;
+    this.router.navigate(['treatments']);
   }
 
   //> Management
@@ -149,7 +175,7 @@ export class AnimalsListComponent implements OnInit {
 
     if (msg) {
       // Reload updated info
-      this.loadPlacings();
+      this.loadPlacings(this.animalsService.selectedFarmId);
 
       // Show message
       this.showMessage(msg);

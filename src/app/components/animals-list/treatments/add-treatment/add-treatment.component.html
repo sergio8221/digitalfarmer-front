@@ -1,0 +1,27 @@
+<div class="modal-backdrop">
+    <form class="form" [formGroup]="createForm">
+        <h2 class="form-title">Treatment</h2>
+        <button class="btn-close" type="button" (click)="cancel()"><i class="far fa-window-close"></i></button>
+        <div class="form-row">
+            <textarea class="text-input" placeholder="Descripción" formControlName="description" cols="30"
+                rows="10"></textarea>
+        </div>
+        <div class="form-row">
+            <input class="text-input" type="date" formControlName="dateInit">
+        </div>
+        <div class="form-row" *ngIf="objectUpdate">
+            <input class="text-input" type="date" formControlName="dateEnd">
+        </div>
+        <div class="controls-row">
+            <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="delete()">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="update()" [disabled]="!createForm.valid">Actualizar</button>
+            <button class="btn-accept" *ngIf="!objectUpdate" type="button" (click)="create()" [disabled]="!createForm.valid">Crear</button>
+        </div>
+        <div class="form-row">
+            <!-- Errors -->
+            <span *ngIf="errorMsg" class="error-msg">{{errorMsg}}</span>
+        </div>
+    </form>
+</div>

@@ -19,6 +19,8 @@ import { LoginComponent } from './components/login/login.component';
 import { AddPlacingComponent } from './components/placings/add-placing/add-placing.component';
 import { MsgModalComponent } from './components/shared/msg-modal/msg-modal.component';
 import { AddAnimalComponent } from './components/animals-list/add-animal/add-animal.component';
+import { TreatmentsComponent } from './components/animals-list/treatments/treatments.component';
+import { AddTreatmentComponent } from './components/animals-list/treatments/add-treatment/add-treatment.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AddAnimalComponent } from './components/animals-list/add-animal/add-ani
     LoginComponent,
     AddPlacingComponent,
     MsgModalComponent,
-    AddAnimalComponent
+    AddAnimalComponent,
+    TreatmentsComponent,
+    AddTreatmentComponent
   ],
   imports: [
     BrowserModule,

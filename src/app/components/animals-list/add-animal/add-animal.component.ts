@@ -47,7 +47,7 @@ export class AddAnimalComponent implements OnInit {
       code: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(20)
+        Validators.maxLength(10)
       ]),
       sex: new FormControl('F', [
         Validators.required
@@ -65,11 +65,6 @@ export class AddAnimalComponent implements OnInit {
   }
 
   ngOnInit() {
-    // If update selected load values into form
-    if (this.objectUpdate) {
-      this.loadUpdate();
-    }
-
     // Load species list
     this.speciesList = [];
     this.loadSpecies();
@@ -79,11 +74,11 @@ export class AddAnimalComponent implements OnInit {
     this.loadPlacings();
 
     // Load today date
-    if (!this.objectUpdate || !this.objectUpdate.born) {
-      let today = new Date();
-      this.createForm.get('born').setValue(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
-    } else {
-      this.createForm.get('born').setValue(this.objectUpdate.born.getFullYear() + '-' + (this.objectUpdate.born.getMonth() + 1) + '-' + this.objectUpdate.born.getDate());
+    this.createForm.get('born').setValue(this.animalsService.parseDateString(new Date()));
+
+    // If update selected load values into form
+    if (this.objectUpdate) {
+      this.loadUpdate();
     }
 
   }
@@ -172,9 +167,11 @@ export class AddAnimalComponent implements OnInit {
     this.createForm.get('name').setValue(this.objectUpdate.name);
     this.createForm.get('code').setValue(this.objectUpdate.code);
     this.createForm.get('sex').setValue(this.objectUpdate.sex);
-    this.createForm.get('born').setValue(this.objectUpdate.born);
     this.createForm.get('placing').setValue(this.objectUpdate.placing.id);
     this.createForm.get('species').setValue(this.objectUpdate.species.id);
+
+    // Load born date
+    this.createForm.get('born').setValue(this.animalsService.parseDateString(this.objectUpdate.born));
   }
 
   /**

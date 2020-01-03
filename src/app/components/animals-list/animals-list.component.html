@@ -1,11 +1,11 @@
-<!-- Filter card -->
+<!--> Filter card -->
 <section class="card card-filter elevation-z2">
     <!-- Header -->
     <div class="card-filter__header">
         <button type="button" class="card-filter__btn-back" [routerLink]="['/placings']"><i
                 class="fas fa-arrow-left"></i></button>
         <button type="button" class="card-filter__btn-title" (click)="toggleFilters()">
-            <span>FILTRAR</span>
+            <span>ANIMALES</span>
             <i class="fas fa-arrow-down card-filter__arrow" [ngClass]="{'card-filter__arrow--shown': showFilters}"></i>
         </button>
     </div>
@@ -38,7 +38,7 @@
     </div>
 </section>
 
-<!-- Animal card -->
+<!--> Animal card -->
 <section class="card card-animal elevation-z2" *ngFor="let animal of animalList"
     [ngClass]="{'card-animal--shown': animal.id == expandAnimalId}" (click)="expandAnimal(animal.id)">
     <div class="card-animal__header">
@@ -52,8 +52,8 @@
     </div>
     <div class="card-animal__content">
         <div class="card-animal__element">
-            <span class="card-animal__element-title">Edad</span>
-            <span class="card-animal__element-value">2 años y 6 meses</span>
+            <span class="card-animal__element-title">Nacido</span>
+            <span class="card-animal__element-value">{{animal.born | date:'d - M - yyyy'}}</span>
         </div>
         <div class="card-animal__element">
             <span class="card-animal__element-title">Sexo</span>
@@ -70,9 +70,17 @@
         </div>
     </div>
     <div class="card-animal__controls">
-        <button type="button" class="btn-edit" (click)="update($event, animal)"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn-edit" (click)="update($event, animal)"><i class="fas fa-pen"></i></button>
+        <button type="button" class="btn-treatments" (click)="showTreatments($event, animal.id)"><i
+                class="fas fa-syringe"></i></button>
     </div>
 </section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!animalList"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="animalList && animalList.length == 0">Añada elementos</div>
 
 <!-- >Add button -->
 <button class="btn-add elevation-z2" type="button" (click)="create()">

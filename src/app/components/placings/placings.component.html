@@ -1,5 +1,15 @@
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/main']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">RECINTOS</span>
+    </div>
+</section>
+
 <!-- >All animals -->
-<section class="card card-animals card-main elevation-z2" (click)="selectPlacing(0)">
+<section class="card card-animals card-main elevation-z2" (click)="selectPlacing(0)" *ngIf="placings">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Lista completa</h2>
@@ -60,6 +70,12 @@
         </div>
     </div>
 </section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!placings"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="placings && placings.length == 0">Añada elementos</div>
 
 <!-- >Add button -->
 <button class="btn-add elevation-z2" type="button" (click)="create()">

@@ -19,9 +19,19 @@ export class AnimalsService {
   --------------------------------------------------------------------------- */
 
   /**
+   * Selected farm
+   */
+  selectedFarmId: number;
+
+  /**
    * Selected placing to load animal list
    */
   selectedPlacingId: number;
+
+  /**
+   * Selected animal id to load treatments
+   */
+  selectedAnimalId: number;
 
   /* -----------------------------------------------------------------------
   !--------------------------FUNCTIONS--------------------------------------
@@ -40,6 +50,16 @@ export class AnimalsService {
     }
 
     return false;
+  }
+
+  /**
+   * Convert date to string accepted by date picker
+   * @param date Date to parse
+   */
+  parseDateString(date: Date): string {
+    let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    return (date.getFullYear() + "-" + (month) + "-" + (day));
   }
 
   /* -----------------------------------------------------------------------
@@ -84,6 +104,10 @@ export class AnimalsService {
 
   public getPlacingById(idPlacing: number): Observable<any> {
     return this.http.get(this.endpoint + 'placings/' + idPlacing).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
+  public getPlacingByFarmId(idFarm: number): Observable<any> {
+    return this.http.get(this.endpoint + 'placings/farm/' + idFarm).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   /*-----------POST--------- */
@@ -196,16 +220,20 @@ export class AnimalsService {
 
   /*-----------GET--------- */
   public getAllTreatments(): Observable<any> {
-    return this.http.get(this.endpoint + 'treatment/').pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+    return this.http.get(this.endpoint + 'treatments/').pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   public getTreatmentById(idTreatment: number): Observable<any> {
-    return this.http.get(this.endpoint + 'treatment/' + idTreatment).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+    return this.http.get(this.endpoint + 'treatments/' + idTreatment).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
+  public getTreatmentsByAnimalId(idAnimal: number): Observable<any> {
+    return this.http.get(this.endpoint + 'treatments/animal/' + idAnimal).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   /*-----------POST--------- */
   public createTreatment(treatment: Treatment) {
-    return this.http.post<Species>(this.endpoint + 'treatment/', JSON.stringify(treatment), this.httpOptions)
+    return this.http.post<Species>(this.endpoint + 'treatments/', JSON.stringify(treatment), this.httpOptions)
       .pipe(map(res => {
         return res;
       }));
@@ -214,7 +242,7 @@ export class AnimalsService {
   /*-----------UPDATE--------- */
 
   public updateTreatment(treatment: Treatment) {
-    return this.http.put<Species>(this.endpoint + 'treatment/', JSON.stringify(treatment), this.httpOptions)
+    return this.http.put<Species>(this.endpoint + 'treatments/', JSON.stringify(treatment), this.httpOptions)
       .pipe(map(res => {
         return res;
       }));
@@ -223,7 +251,7 @@ export class AnimalsService {
   /*-----------DELETE--------- */
 
   public deleteTreatment(idTreatment: number) {
-    return this.http.delete(this.endpoint + 'treatment/' + idTreatment)
+    return this.http.delete(this.endpoint + 'treatments/' + idTreatment)
       .pipe(map(res => {
         return res;
       }));
@@ -270,7 +298,10 @@ export interface Species {
  */
 export interface Treatment {
   id: number,
-  description: string
+  description: string,
+  dateInit: Date,
+  dateEnd: Date,
+  animal?: Animal
 }
 
 /**

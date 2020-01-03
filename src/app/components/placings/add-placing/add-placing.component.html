@@ -9,8 +9,8 @@
             <button class="btn-accept" *ngIf="placingUpdate" type="button" (click)="delete()">
                 <i class="fas fa-trash-alt"></i>
             </button>
-            <button class="btn-accept" *ngIf="placingUpdate" type="button" (click)="update()">Actualizar</button>
-            <button class="btn-accept" *ngIf="!placingUpdate" type="button" (click)="create()">Crear</button>
+            <button class="btn-accept" *ngIf="placingUpdate" type="button" (click)="update()" [disabled]="!createForm.valid">Actualizar</button>
+            <button class="btn-accept" *ngIf="!placingUpdate" type="button" (click)="create()" [disabled]="!createForm.valid">Crear</button>
         </div>
         <div class="form-row">
             <!-- Errors -->

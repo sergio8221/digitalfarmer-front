@@ -46,6 +46,7 @@
 
 .card {
   width: 90%;
+  max-width: 25rem;
   margin: 1rem 0;
   position: relative;
   overflow: hidden;
@@ -202,16 +203,26 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
   padding: .5rem 1rem;
 
   button {
     background-color: transparent;
     border: none;
   }
+
+  &--title {
+    font-size: 1.3rem;
+    letter-spacing: .06rem;
+  }
 }
 
 .card-filter__btn-back {
   font-size: 2rem;
+
+  .logout-icon {
+    transform: scale(-1);
+  }
 }
 
 .card-filter__btn-title {
@@ -257,6 +268,26 @@
   span {
     margin-left: .5rem;
   }
+}
+
+//> Loading icon
+
+.loading-icon {
+  color: $color-secondary-dark;
+  font-size: 4rem;
+  animation: rotate-in 1s infinite linear;
+  margin-top: 3rem;
+}
+
+//> No items warning
+
+.no-items-warn {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 1.3rem;
+  border: 1px solid $color-secondary-dark;
+  border-radius: .3rem;
+  color: $color-secondary-dark;
 }
 
 //> Add item button
@@ -338,6 +369,7 @@
 
 .form {
   width: 95%;
+  max-width: 30rem;
   background-color: $color-primary;
   padding: 1rem 1.5rem;
   border-radius: .5rem;
@@ -406,14 +438,20 @@
       margin-left: .5rem;
       border: none;
       border-radius: .3rem;
-      color: $color-white;
       background-color: $color-secondary-dark;
+      color: $color-white;
       box-shadow: 0 3px 6px 0 rgba($color: $color-black, $alpha: .3);
       font-size: 1.3rem;
       cursor: pointer;
 
       &:hover {
         box-shadow: 0 5px 8px 0 rgba($color: $color-black, $alpha: .3);
+      }
+
+      &[disabled] {
+        background-color: $color-grey-dark;
+        color: $color-grey-light;
+        box-shadow: none;
       }
     }
   }
