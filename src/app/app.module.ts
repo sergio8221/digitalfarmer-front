@@ -21,6 +21,8 @@ import { MsgModalComponent } from './components/shared/msg-modal/msg-modal.compo
 import { AddAnimalComponent } from './components/animals-list/add-animal/add-animal.component';
 import { TreatmentsComponent } from './components/animals-list/treatments/treatments.component';
 import { AddTreatmentComponent } from './components/animals-list/treatments/add-treatment/add-treatment.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { AddTreatmentComponent } from './components/animals-list/treatments/add-
     MsgModalComponent,
     AddAnimalComponent,
     TreatmentsComponent,
-    AddTreatmentComponent
+    AddTreatmentComponent,
+    TasksComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,

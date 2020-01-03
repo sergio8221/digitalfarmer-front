@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Placing, AnimalsService, PlacingSummary } from 'src/app/services/animals/animals.service';
 import { Router } from '@angular/router';
 import { Msg } from 'src/app/services/language/language.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-placings',
@@ -50,12 +51,12 @@ export class PlacingsComponent implements OnInit {
    */
   msg: Msg;
 
-  constructor(private animalsService: AnimalsService, private router: Router) { }
+  constructor(private animalsService: AnimalsService, private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
     //Get placings
-    if (this.animalsService.selectedFarmId) {
-      this.loadPlacings(this.animalsService.selectedFarmId);
+    if (this.usersService.currFarm.id) {
+      this.loadPlacings(this.usersService.currFarm.id);
     } else {
       this.router.navigate(['main']);
     }
@@ -264,7 +265,7 @@ export class PlacingsComponent implements OnInit {
 
     if (msg) {
       // Reload updated info
-      this.loadPlacings(this.animalsService.selectedFarmId);
+      this.loadPlacings(this.usersService.currFarm.id);
 
       // Show message
       this.showMessage(msg);

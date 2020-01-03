@@ -15,8 +15,6 @@ export class MainComponent implements OnInit {
   constructor(private animalsService: AnimalsService) { }
 
   ngOnInit() {
-    // todo
-    this.animalsService.selectedFarmId = 1;
   }
 
 }

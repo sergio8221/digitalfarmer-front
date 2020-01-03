@@ -9,6 +9,7 @@ import { MachineryComponent } from './components/machinery/machinery.component';
 import { AnimalsListComponent } from './components/animals-list/animals-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { TreatmentsComponent } from './components/animals-list/treatments/treatments.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'treatments', component: TreatmentsComponent, data: { animation: 'treatmentsPage' } },
   { path: 'crops', component: CropsComponent, data: { animation: 'cropsPage' } },
   { path: 'machinery', component: MachineryComponent, data: { animation: 'machineryPage' } },
+  { path: 'tasks', component: TasksComponent, data: { animation: 'tasksPage' } },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

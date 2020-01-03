@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { interval, throwError, of, Observable } from 'rxjs';
 import { flatMap, retryWhen, map } from 'rxjs/operators';
+import { Farm } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,10 @@ export class FarmTasksService {
     return this.http.get(this.endpoint + 'farmTasks/' + idFarmTask).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
+  public getFarmTaskByFarmId(idFarm: number): Observable<any> {
+    return this.http.get(this.endpoint + 'farmTasks/farm/' + idFarm).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
   /*-----------POST--------- */
   public createFarmTask(farmTask: FarmTask) {
     return this.http.post<FarmTask>(this.endpoint + 'farmTasks/', JSON.stringify(farmTask), this.httpOptions)
@@ -88,5 +93,6 @@ export interface FarmTask {
   id: number,
   description: string,
   date: Date,
-  completed: boolean
+  completed: boolean,
+  farm?: Farm
 }
