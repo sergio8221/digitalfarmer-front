@@ -1,0 +1,67 @@
+//> Imports
+
+@import '../../../../assets/styles/variables';
+
+//> Treatment card
+
+.card-maintenance {
+  background-color: $color-secondary-dark;
+  height: 4rem;
+  transition: height .5s ease-out;
+
+  &--shown {
+    height: 15rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: .06rem;
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    div {
+      border: 1px solid $color-white;
+      border-radius: .3rem;
+      margin-top: .5rem;
+      width: 90%;
+      height: 6rem;
+      padding: .5rem;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem 1rem;
+
+    button {
+      border: 2px solid white;
+      border-radius: .3rem;
+      background-color: transparent;
+      margin-right: 1rem;
+      padding: .3rem;
+
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

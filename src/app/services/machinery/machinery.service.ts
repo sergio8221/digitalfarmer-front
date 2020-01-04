@@ -110,6 +110,10 @@ export class MachineryService {
     return this.http.get(this.endpoint + 'maintenances/' + idMaintenance).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
+  public getMaintenancesByMachineId(idMachine: number): Observable<any> {
+    return this.http.get(this.endpoint + 'maintenances/machine/' + idMachine).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
   /*-----------POST--------- */
   public createMaintenance(maintenance: Maintenance) {
     return this.http.post<Maintenance>(this.endpoint + 'maintenances/', JSON.stringify(maintenance), this.httpOptions)
@@ -155,5 +159,7 @@ export interface Machine {
  */
 export interface Maintenance {
   id: number,
-  description: string
+  description: string,
+  date: Date,
+  machine?: Machine
 }

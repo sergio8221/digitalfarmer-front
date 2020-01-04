@@ -1,16 +1,13 @@
 <div class="modal-backdrop">
     <form class="form" [formGroup]="createForm">
-        <h2 class="form-title">Tratamiento</h2>
+        <h2 class="form-title">Mantenimiento</h2>
         <button class="btn-close" type="button" (click)="cancel()"><i class="far fa-window-close"></i></button>
         <div class="form-row">
             <textarea class="text-input" placeholder="Descripción" formControlName="description" cols="30"
                 rows="5"></textarea>
         </div>
         <div class="form-row">
-            <input class="text-input" type="date" formControlName="dateInit">
-        </div>
-        <div class="form-row" *ngIf="objectUpdate">
-            <input class="text-input" type="date" formControlName="dateEnd">
+            <input class="text-input" type="date" formControlName="date">
         </div>
         <div class="controls-row">
             <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="delete()">

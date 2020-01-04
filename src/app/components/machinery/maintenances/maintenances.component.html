@@ -1,1 +1,45 @@
-<p>maintenances works!</p>
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/machinery']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">MANTENIMIENTOS</span>
+    </div>
+</section>
+
+<!--> Treatment card -->
+<section class="card card-maintenance elevation-z2" *ngFor="let maintenance of maintenances"
+    [ngClass]="{'card-maintenance--shown': maintenance.id == expandMaintenanceId}"
+    (click)="expandMaintenance(maintenance.id)">
+    <div class="card-maintenance__header">
+        <h2>
+            <span>{{maintenance.date | date:'d-M-yyyy'}}</span>
+        </h2>
+        <i class="fas fa-cog"></i>
+    </div>
+    <div class="card-maintenance__content">
+        <div>{{maintenance.description}}</div>
+    </div>
+    <div class="card-maintenance__controls">
+        <button type="button" class="btn-edit" (click)="update($event, maintenance)"><i class="fas fa-pen"></i></button>
+    </div>
+</section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!maintenances"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="maintenances && maintenances.length == 0">Añada elementos</div>
+
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
+    <i class="fas fa-plus"></i>
+</button>
+
+<!-- >Create modal -->
+<app-add-maintenance *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-maintenance>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

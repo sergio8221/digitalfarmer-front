@@ -25,6 +25,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
 import { AddMachineComponent } from './components/machinery/add-machine/add-machine.component';
 import { MaintenancesComponent } from './components/machinery/maintenances/maintenances.component';
+import { AddMaintenanceComponent } from './components/machinery/maintenances/add-maintenance/add-maintenance.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MaintenancesComponent } from './components/machinery/maintenances/maint
     TasksComponent,
     AddTaskComponent,
     AddMachineComponent,
-    MaintenancesComponent
+    MaintenancesComponent,
+    AddMaintenanceComponent
   ],
   imports: [
     BrowserModule,
