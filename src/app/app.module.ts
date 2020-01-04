@@ -23,6 +23,8 @@ import { TreatmentsComponent } from './components/animals-list/treatments/treatm
 import { AddTreatmentComponent } from './components/animals-list/treatments/add-treatment/add-treatment.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
+import { AddMachineComponent } from './components/machinery/add-machine/add-machine.component';
+import { MaintenancesComponent } from './components/machinery/maintenances/maintenances.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AddTaskComponent } from './components/tasks/add-task/add-task.component
     TreatmentsComponent,
     AddTreatmentComponent,
     TasksComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AddMachineComponent,
+    MaintenancesComponent
   ],
   imports: [
     BrowserModule,

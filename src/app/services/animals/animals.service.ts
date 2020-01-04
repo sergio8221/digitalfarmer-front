@@ -19,11 +19,6 @@ export class AnimalsService {
   --------------------------------------------------------------------------- */
 
   /**
-   * Selected farm
-   */
-  selectedFarmId: number;
-
-  /**
    * Selected placing to load animal list
    */
   selectedPlacingId: number;

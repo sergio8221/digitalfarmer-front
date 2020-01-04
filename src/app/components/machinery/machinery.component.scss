@@ -1,0 +1,74 @@
+//> Imports
+
+@import '../../../assets/styles/variables';
+
+//> Task card
+
+.card-machine {
+  background-color: $color-secondary-dark;
+  height: 4rem;
+  transition: height .5s ease-out;
+
+  &--shown {
+    height: 11rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+
+    h2 {
+      font-weight: 400;
+      letter-spacing: .06rem;
+    }
+
+    i {
+      font-size: 2rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    .card-machine__element {
+      border-left: 2px solid $color-white;
+      padding-left: .5rem;
+      width: 40%;
+      margin-top: .5rem;
+
+      &-title {
+        display: inline-block;
+        width: 100%;
+        font-size: .6rem;
+      }
+
+      &-value {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem 1rem;
+
+    button{
+      border: 2px solid white;
+      border-radius: .3rem;
+      background-color: transparent;
+      margin-right: 1rem;
+      padding: .3rem;
+
+      i{
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

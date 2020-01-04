@@ -1,1 +1,53 @@
-<p>machinery works!</p>
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/main']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">MAQUINARIA</span>
+    </div>
+</section>
+
+<!--> Treatment card -->
+<section class="card card-machine elevation-z2" *ngFor="let machine of machines"
+    [ngClass]="{'card-machine--shown': machine.id == expandMachineId}" (click)="expandMachine(machine.id)">
+    <div class="card-machine__header">
+        <h2>
+            <span>{{machine.name}}</span>
+        </h2>
+        <i class="fas fa-tractor"></i>
+    </div>
+    <div class="card-machine__content">
+        <div class="card-machine__element">
+            <span class="card-machine__element-title">Adquirido</span>
+            <span class="card-machine__element-value">{{machine.adquisition | date:'d - M - yyyy'}}</span>
+        </div>
+        <div class="card-machine__element">
+            <span class="card-machine__element-title">Coste</span>
+            <span class="card-machine__element-value">{{machine.cost}} €</span>
+        </div>
+    </div>
+    <div class="card-machine__controls">
+        <button type="button" class="btn-edit" (click)="update($event, machine)"><i class="fas fa-pen"></i></button>
+        <button type="button" class="btn-treatments" (click)="showMaintenances($event, machine.id)"><i
+                class="fas fa-cog"></i></button>
+    </div>
+</section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!machines"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="machines && machines.length == 0">Añada elementos</div>
+
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
+    <i class="fas fa-plus"></i>
+</button>
+
+<!-- >Create modal -->
+<app-add-machine *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-machine>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

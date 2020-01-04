@@ -1,18 +1,18 @@
 <!-- Main section -->
 <main [@routeAnimations]="prepareRoute(outlet)">
-  <router-outlet #outlet="outlet"></router-outlet>
+    <router-outlet #outlet="outlet"></router-outlet>
 </main>
 
 <!-- Nav section -->
 <nav *ngIf="currRoute != '/login'">
-  <button class="nav__btn" type="button" [routerLink]="['/main']" routerLinkActive="router-link-active"><i
-      class="fas fa-star"></i></button>
-  <button class="nav__btn" type="button" [routerLink]="['/placings']" routerLinkActive="router-link-active"><i
-      class="fas fa-horse"></i></button>
-  <button class="nav__btn" type="button" [routerLink]="['/crops']" routerLinkActive="router-link-active"><i
-      class="fas fa-seedling"></i></button>
-  <button class="nav__btn" type="button" [routerLink]="['/machinery']" routerLinkActive="router-link-active"><i
-      class="fas fa-tractor"></i></button>
-  <button class="nav__btn" type="button" [routerLink]="['/settings']" routerLinkActive="router-link-active"><i
-      class="fas fa-cog"></i></button>
+    <button class="nav__btn" type="button" [routerLink]="['/main']" routerLinkActive="router-link-active"><i
+            class="fas fa-star"></i></button>
+    <button class="nav__btn" type="button" [routerLink]="['/placings']" routerLinkActive="router-link-active"><i
+            class="fas fa-horse"></i></button>
+    <button class="nav__btn" type="button" [routerLink]="['/crops']" routerLinkActive="router-link-active"><i
+            class="fas fa-seedling"></i></button>
+    <button class="nav__btn" type="button" [routerLink]="['/machinery']" routerLinkActive="router-link-active"><i
+            class="fas fa-tractor"></i></button>
+    <button class="nav__btn" type="button" [routerLink]="['/tasks']" routerLinkActive="router-link-active"><i
+            class="fas fa-tasks"></i></button>
 </nav>

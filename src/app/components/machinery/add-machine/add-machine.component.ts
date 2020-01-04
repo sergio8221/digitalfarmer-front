@@ -1,21 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FarmTask, FarmTasksService } from 'src/app/services/farm-tasks/farm-tasks.service';
+import { MachineryService, Machine } from 'src/app/services/machinery/machinery.service';
 import { Msg, LanguageService } from 'src/app/services/language/language.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AnimalsService } from 'src/app/services/animals/animals.service';
 import { UsersService } from 'src/app/services/users/users.service';
+import { AnimalsService } from 'src/app/services/animals/animals.service';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.scss']
+  selector: 'app-add-machine',
+  templateUrl: './add-machine.component.html',
+  styleUrls: ['./add-machine.component.scss']
 })
-export class AddTaskComponent implements OnInit {
+export class AddMachineComponent implements OnInit {
 
   /**
    * Object to update
    */
-  @Input() objectUpdate: FarmTask;
+  @Input() objectUpdate: Machine;
 
   /**
    * Msg to be returned by modal
@@ -28,26 +28,26 @@ export class AddTaskComponent implements OnInit {
   createForm: FormGroup;
 
   constructor(private animalsService: AnimalsService,
+    private machineryService: MachineryService,
     private usersService: UsersService,
-    private languageService: LanguageService,
-    private tasksService: FarmTasksService) {
+    private languageService: LanguageService) {
     // Init form
     this.createForm = new FormGroup({
-      description: new FormControl('', [
+      name: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(100)
+        Validators.maxLength(20)
       ]),
-      date: new FormControl(null, [
+      adquisition: new FormControl(null, [
         Validators.required
       ]),
-      completed: new FormControl()
+      cost: new FormControl()
     });
   }
 
   ngOnInit() {
     // Load today date
-    this.createForm.get('date').setValue(this.animalsService.parseDateString(new Date()));
+    this.createForm.get('adquisition').setValue(this.animalsService.parseDateString(new Date()));
 
     // If update selected load values into form
     if (this.objectUpdate) {
@@ -60,11 +60,11 @@ export class AddTaskComponent implements OnInit {
    */
   create() {
     // Create object
-    let newObject: FarmTask = {
+    let newObject: Machine = {
       id: null,
-      description: this.createForm.get('description').value,
-      date: this.createForm.get('date').value,
-      completed: false,
+      name: this.createForm.get('name').value,
+      adquisition: this.createForm.get('adquisition').value,
+      cost: this.createForm.get('cost').value,
       farm: {
         id: this.usersService.currFarm.id,
         location: null
@@ -72,7 +72,7 @@ export class AddTaskComponent implements OnInit {
     };
 
     // Send object to database
-    this.tasksService.createFarmTask(newObject).subscribe(data => {
+    this.machineryService.createMachine(newObject).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.createSuccess);
     }, error => {
@@ -86,11 +86,11 @@ export class AddTaskComponent implements OnInit {
    * Fill form with update info
    */
   loadUpdate() {
-    this.createForm.get('description').setValue(this.objectUpdate.description);
-    this.createForm.get('completed').setValue(this.objectUpdate.completed);
+    this.createForm.get('name').setValue(this.objectUpdate.name);
+    this.createForm.get('cost').setValue(this.objectUpdate.cost);
 
     // Load date
-    this.createForm.get('date').setValue(this.animalsService.parseDateString(new Date(this.objectUpdate.date)));
+    this.createForm.get('adquisition').setValue(this.animalsService.parseDateString(new Date(this.objectUpdate.adquisition)));
   }
 
   /**
@@ -98,11 +98,11 @@ export class AddTaskComponent implements OnInit {
    */
   update() {
     // Create object
-    let newObject: FarmTask = {
+    let newObject: Machine = {
       id: this.objectUpdate.id,
-      description: this.createForm.get('description').value,
-      date: this.createForm.get('date').value,
-      completed: this.createForm.get('completed').value,
+      name: this.createForm.get('name').value,
+      adquisition: this.createForm.get('adquisition').value,
+      cost: this.createForm.get('cost').value,
       farm: {
         id: this.usersService.currFarm.id,
         location: null
@@ -110,7 +110,7 @@ export class AddTaskComponent implements OnInit {
     };
 
     // Send object to database
-    this.tasksService.updateFarmTask(newObject).subscribe(data => {
+    this.machineryService.updateMachine(newObject).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.updateSuccess);
     }, error => {
@@ -125,7 +125,7 @@ export class AddTaskComponent implements OnInit {
    */
   delete() {
     // Delete object from database
-    this.tasksService.deleteFarmTask(this.objectUpdate.id).subscribe(data => {
+    this.machineryService.deleteMachine(this.objectUpdate.id).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.deleteSuccess);
     }, error => {

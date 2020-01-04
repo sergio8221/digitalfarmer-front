@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { interval, throwError, of, Observable } from 'rxjs';
 import { flatMap, retryWhen, map } from 'rxjs/operators';
+import { Farm } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,15 @@ export class MachineryService {
   constructor(private http: HttpClient) {
     this.endpoint = environment.endpoint;
   }
+
+  /* -----------------------------------------------------------------------
+  !------------------------CURRENT DATA--------------------------------------
+  --------------------------------------------------------------------------- */
+
+  /**
+   * Selected machine
+   */
+  selectedMachineId: number;
 
   /* -----------------------------------------------------------------------
   !--------------------------------AUX--------------------------------------
@@ -55,6 +65,10 @@ export class MachineryService {
 
   public getMachineById(idMachine: number): Observable<any> {
     return this.http.get(this.endpoint + 'machines/' + idMachine).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
+  public getMachinesByFarmId(idFarm: number): Observable<any> {
+    return this.http.get(this.endpoint + 'machines/farm/' + idFarm).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   /*-----------POST--------- */
@@ -131,8 +145,9 @@ export interface Machine {
   id: number,
   name: string,
   adquisition: Date,
-  prize: number,
-  maintenances?: Maintenance[]
+  cost: number,
+  maintenances?: Maintenance[],
+  farm?: Farm
 }
 
 /**
