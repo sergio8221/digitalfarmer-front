@@ -27,6 +27,8 @@ export class AddTaskComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private animalsService: AnimalsService,
     private usersService: UsersService,
     private languageService: LanguageService,

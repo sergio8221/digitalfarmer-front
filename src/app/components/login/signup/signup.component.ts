@@ -14,6 +14,8 @@ export class SignupComponent implements OnInit {
   @Output() returnMsg = new EventEmitter<Msg>();
 
   createForm: FormGroup;
+  
+  errorMsg: string;
 
   constructor(private usersService: UsersService,
     private languageService: LanguageService) {

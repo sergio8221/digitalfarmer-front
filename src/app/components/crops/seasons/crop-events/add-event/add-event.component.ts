@@ -26,6 +26,8 @@ export class AddEventComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private cropsService: CropsService,
     private languageService: LanguageService,
     private animalsService: AnimalsService) {

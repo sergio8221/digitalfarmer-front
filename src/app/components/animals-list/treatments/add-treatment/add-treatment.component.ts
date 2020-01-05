@@ -25,6 +25,8 @@ export class AddTreatmentComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private animalsService: AnimalsService, private languageService: LanguageService) {
     // Init form
     this.createForm = new FormGroup({

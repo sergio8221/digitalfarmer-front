@@ -36,6 +36,8 @@ export class AddAnimalComponent implements OnInit {
    */
   placingsList: Placing[];
 
+  errorMsg: string;
+
   constructor(private animalsService: AnimalsService, private languageService: LanguageService, private usersService: UsersService) {
     // Init form
     this.createForm = new FormGroup({

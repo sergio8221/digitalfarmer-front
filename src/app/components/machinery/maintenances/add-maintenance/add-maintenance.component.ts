@@ -26,6 +26,8 @@ export class AddMaintenanceComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private machineryService: MachineryService, private languageService: LanguageService, private animalsService: AnimalsService) {
     // Init form
     this.createForm = new FormGroup({

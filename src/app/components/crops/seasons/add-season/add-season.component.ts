@@ -25,6 +25,8 @@ export class AddSeasonComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private cropsService: CropsService,
     private languageService: LanguageService) {
     // Init form

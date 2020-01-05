@@ -27,6 +27,8 @@ export class AddMachineComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private animalsService: AnimalsService,
     private machineryService: MachineryService,
     private usersService: UsersService,

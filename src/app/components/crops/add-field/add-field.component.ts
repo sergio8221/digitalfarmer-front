@@ -26,6 +26,8 @@ export class AddFieldComponent implements OnInit {
    */
   createForm: FormGroup;
 
+  errorMsg: string;
+
   constructor(private cropsService: CropsService,
     private usersService: UsersService,
     private languageService: LanguageService) {
