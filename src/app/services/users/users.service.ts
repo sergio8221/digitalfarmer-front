@@ -22,17 +22,9 @@ export class UsersService {
   --------------------------------------------------------------------------- */
 
   /**
-   * Current loaded user
-   */
-  currUser: User;
-
-  /**
    * Current loaded farm
    */
-  currFarm: Farm = {
-    id: 1,
-    location: 'Valladolid'
-  }
+  currFarm: Farm;
 
   /* -----------------------------------------------------------------------
   !--------------------------------AUX--------------------------------------
@@ -78,9 +70,20 @@ export class UsersService {
     return this.http.get(this.endpoint + 'users/' + idUser).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
+  public getUserByEmail(email: string): Observable<any> {
+    return this.http.get(this.endpoint + 'users/email/' + email).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
   /*-----------POST--------- */
   public createUser(user: User) {
     return this.http.post<User>(this.endpoint + 'users/', JSON.stringify(user), this.httpOptions)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  public loginUser(loginRequest: LoginRequest) {
+    return this.http.post<User>(this.endpoint + 'users/login/', JSON.stringify(loginRequest), this.httpOptions)
       .pipe(map(res => {
         return res;
       }));
@@ -115,6 +118,10 @@ export class UsersService {
 
   public getFarmById(idFarm: number): Observable<any> {
     return this.http.get(this.endpoint + 'farms/' + idFarm).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
+  public getFarmByUserId(idUser: number): Observable<any> {
+    return this.http.get(this.endpoint + 'farms/user/' + idUser).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   /*-----------POST--------- */
@@ -153,7 +160,7 @@ export interface User {
   email: string,
   password: string,
   name: string,
-  farm?: Farm
+  token?: string
 }
 
 /**
@@ -163,7 +170,13 @@ export interface Farm {
   id: number,
   location: string,
   placings?: Placing[],
-  farmTasks?: FarmTask[],
+  tasks?: FarmTask[],
   machines?: Machine[],
-  fields?: Field[]
+  fields?: Field[],
+  user?: User
+}
+
+export interface LoginRequest {
+  email: string,
+  password: string
 }

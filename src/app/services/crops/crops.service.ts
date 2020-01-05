@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { interval, throwError, of, Observable } from 'rxjs';
 import { flatMap, retryWhen, map } from 'rxjs/operators';
+import { Farm } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,20 @@ export class CropsService {
   constructor(private http: HttpClient) {
     this.endpoint = environment.endpoint;
   }
+
+  /* -----------------------------------------------------------------------
+  !------------------------CURRENT DATA--------------------------------------
+  --------------------------------------------------------------------------- */
+
+  /**
+   * Selected field id
+   */
+  selectedFieldId: number;
+
+  /**
+   * Selected season id
+   */
+  selectedSeasonId: number;
 
   /* -----------------------------------------------------------------------
   !--------------------------------AUX--------------------------------------
@@ -57,6 +72,10 @@ export class CropsService {
     return this.http.get(this.endpoint + 'fields/' + idField).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
+  public getFieldsByFarmId(idFarm: number): Observable<any> {
+    return this.http.get(this.endpoint + 'fields/farm/' + idFarm).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
   /*-----------POST--------- */
   public createField(field: Field) {
     return this.http.post<Field>(this.endpoint + 'fields/', JSON.stringify(field), this.httpOptions)
@@ -94,6 +113,10 @@ export class CropsService {
 
   public getSeasonById(idSeason: number): Observable<any> {
     return this.http.get(this.endpoint + 'seasons/' + idSeason).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
+  public getSeasonsByFieldId(idField: number): Observable<any> {
+    return this.http.get(this.endpoint + 'seasons/field/' + idField).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
   /*-----------POST--------- */
@@ -135,6 +158,10 @@ export class CropsService {
     return this.http.get(this.endpoint + 'cropEvents/' + idCropEvent).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
   }
 
+  public getCropEventsBySeasonId(idSeason: number): Observable<any> {
+    return this.http.get(this.endpoint + 'cropEvents/season/' + idSeason).pipe(retryWhen(this.retry)).pipe(map(this.extractData));
+  }
+
   /*-----------POST--------- */
   public createCropEvent(cropEvent: CropEvent) {
     return this.http.post<CropEvent>(this.endpoint + 'cropEvents/', JSON.stringify(cropEvent), this.httpOptions)
@@ -171,7 +198,8 @@ export interface Field {
   location: string,
   area: number,
   description: string,
-  seasons?: Season[]
+  seasons?: Season[],
+  farm?: Farm
 }
 
 /**
@@ -182,7 +210,8 @@ export interface Season {
   year: number,
   crop: string,
   description: string,
-  cropEvents?: CropEvent[]
+  cropEvents?: CropEvent[],
+  field?: Field
 }
 
 /**
@@ -193,5 +222,6 @@ export interface CropEvent {
   description: string,
   date: Date,
   moneySpent: number,
-  moneyEarned: number
+  moneyEarned: number,
+  season?: Season
 }

@@ -1,10 +1,10 @@
 //> Imports
 
-@import '../../../assets/styles/variables';
+@import '../../../../assets/styles/variables';
 
-//> Crop card
+//> Season card
 
-.card-field {
+.card-season {
   background-color: $color-secondary-dark;
   height: 4rem;
   transition: height .5s ease-out;
@@ -36,7 +36,7 @@
     flex-flow: row wrap;
     justify-content: space-evenly;
 
-    .card-field__element {
+    .card-season__element {
       border-left: 2px solid $color-white;
       padding-left: .5rem;
       width: 40%;

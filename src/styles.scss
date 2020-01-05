@@ -138,7 +138,7 @@
 
         .sex-symbol {
           display: block;
-          font-size: 1.5rem;
+          font-size: 1.3rem;
           position: absolute;
           top: .3rem;
         }
@@ -151,6 +151,36 @@
         .female-symbol {
           right: .3rem;
           color: $color-secondary-light;
+        }
+
+        .big-symbol {
+          left: .3rem;
+          color: $color-primary-dark;
+        }
+
+        .small-symbol {
+          right: .3rem;
+          color: $color-primary-light;
+        }
+
+        .unmantained-symbol {
+          left: .3rem;
+          color: $color-tertiary-dark;
+        }
+
+        .mantained-symbol {
+          right: .3rem;
+          color: $color-tertiary-light;
+        }
+
+        .pending-symbol {
+          left: .3rem;
+          color: $color-grey-dark;
+        }
+
+        .completed-symbol {
+          right: .3rem;
+          color: $color-grey-medium;
         }
       }
 
@@ -195,6 +225,7 @@
 
 .card-filter {
   background-color: $color-primary;
+  max-width: 27rem;
 }
 
 // Header
@@ -300,12 +331,12 @@
   right: .5rem;
   border-radius: 50%;
   border: none;
-  background-color: $color-secondary-dark;
+  background-color: $color-primary;
   animation: btn-entering .7s ease-out;
 
   i {
     font-size: 1.5rem;
-    animation: btn-rotating .7s ease-out
+    animation: btn-rotating .7s ease-out;
   }
 }
 
@@ -470,6 +501,12 @@
         color: $color-grey-light;
         box-shadow: none;
       }
+    }
+
+    .btn-signup{
+      background-color: $color-primary;
+      border: 1px solid $color-secondary-dark;
+      box-shadow: none;
     }
   }
 }

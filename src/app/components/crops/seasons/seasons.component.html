@@ -1,0 +1,52 @@
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/crops']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">Temporadas</span>
+    </div>
+</section>
+
+<!--> Treatment card -->
+<section class="card card-season elevation-z2" *ngFor="let season of seasons"
+    [ngClass]="{'card-season--shown': season.id == expandSeasonId}" (click)="expandSeason(season.id)">
+    <div class="card-season__header">
+        <h2>
+            <span>{{season.year}}</span>
+        </h2>
+        <i class="fas fa-seedling"></i>
+    </div>
+    <div class="card-season__content">
+        <div class="card-season__element">
+            <span class="card-season__element-title">Cultivo</span>
+            <span class="card-season__element-value">{{season.crop}}</span>
+        </div>
+        <div class="card-season__element">
+            <span class="card-season__element-title">Descripción</span>
+            <span class="card-season__element-value">{{season.description}}</span>
+        </div>
+    </div>
+    <div class="card-season__controls">
+        <button type="button" class="btn-edit" (click)="update($event, season)"><i class="fas fa-pen"></i></button>
+        <button type="button" class="btn-treatments" (click)="showEvents($event, season.id)"><i class="fas fa-tractor"></i></button>
+    </div>
+</section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!seasons"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="seasons && seasons.length == 0">Añada elementos</div>
+
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
+    <i class="fas fa-plus"></i>
+</button>
+
+<!-- >Create modal -->
+<app-add-season *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-season>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

@@ -1,1 +1,53 @@
-<p>crops works!</p>
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/main']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">CAMPOS</span>
+    </div>
+</section>
+
+<!--> Treatment card -->
+<section class="card card-field elevation-z2" *ngFor="let field of fields"
+    [ngClass]="{'card-field--shown': field.id == expandFieldId}" (click)="expandField(field.id)">
+    <div class="card-field__header">
+        <h2>
+            <span>{{field.location}}</span>
+        </h2>
+        <i class="fas fa-seedling"></i>
+    </div>
+    <div class="card-field__content">
+        <div class="card-field__element">
+            <span class="card-field__element-title">Area</span>
+            <span class="card-field__element-value">{{field.area}} ha</span>
+        </div>
+        <div class="card-field__element">
+            <span class="card-field__element-title">Descripción</span>
+            <span class="card-field__element-value">{{field.description}}</span>
+        </div>
+    </div>
+    <div class="card-field__controls">
+        <button type="button" class="btn-edit" (click)="update($event, field)"><i class="fas fa-pen"></i></button>
+        <button type="button" class="btn-treatments" (click)="showSeasons($event, field.id)"><i
+                class="far fa-calendar-alt"></i></button>
+    </div>
+</section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!fields"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="fields && fields.length == 0">Añada elementos</div>
+
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
+    <i class="fas fa-plus"></i>
+</button>
+
+<!-- >Create modal -->
+<app-add-field *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-field>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

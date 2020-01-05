@@ -1,0 +1,52 @@
+<!--> Header card -->
+<section class="card card-filter elevation-z2">
+    <!-- Header -->
+    <div class="card-filter__header">
+        <button type="button" class="card-filter__btn-back" [routerLink]="['/seasons']"><i
+                class="fas fa-arrow-left"></i></button>
+        <span class="card-filter__header--title">Trabajos</span>
+    </div>
+</section>
+
+<!--> Treatment card -->
+<section class="card card-event elevation-z2" *ngFor="let event of events"
+    [ngClass]="{'card-event--shown': event.id == expandEventId}" (click)="expandEvent(event.id)">
+    <div class="card-event__header">
+        <h2>
+            <span>{{event.date | date:'d-M-yyyy'}}</span>
+            <span> : {{event.description}}</span>
+        </h2>
+        <i class="fas fa-tractor"></i>
+    </div>
+    <div class="card-event__content">
+        <div class="card-event__element">
+            <span class="card-event__element-title">Gasto</span>
+            <span class="card-event__element-value">{{event.moneySpent}}</span>
+        </div>
+        <div class="card-event__element">
+            <span class="card-event__element-title">Ganancia</span>
+            <span class="card-event__element-value">{{event.moneyEarned}}</span>
+        </div>
+    </div>
+    <div class="card-event__controls">
+        <button type="button" class="btn-edit" (click)="update($event, event)"><i class="fas fa-pen"></i></button>
+    </div>
+</section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!events"></i>
+
+<!-- >No items warning -->
+<div class="no-items-warn" *ngIf="events && events.length == 0">Añada elementos</div>
+
+<!-- >Add button -->
+<button class="btn-add elevation-z2" type="button" (click)="create()">
+    <i class="fas fa-plus"></i>
+</button>
+
+<!-- >Create modal -->
+<app-add-event *ngIf="createModal" [objectUpdate]="objectUpdate" (returnMsg)="onModalReturn($event)">
+</app-add-event>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

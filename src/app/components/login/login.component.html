@@ -1,16 +1,24 @@
 <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
     <h2 class="app-title">Digital Farmer</h2>
     <div class="form-row">
-        <input class="text-input text-input--center" placeholder="Username" formControlName="username">
+        <input class="text-input text-input--center" placeholder="Email" formControlName="email">
     </div>
     <div class="form-row">
         <input class="text-input text-input--center" type="password" placeholder="Password" formControlName="pass">
     </div>
     <div class="controls-row">
-        <button class="btn-accept" type="submit">Login</button>
+        <button class="btn-accept btn-signup" type="button" (click)="openSignUp()">Registro</button>
+        <button class="btn-accept" type="submit" [disabled]="!loginForm.valid">Login</button>
     </div>
     <div class="form-row">
         <!-- Errors -->
         <span *ngIf="errorMsg" class="error-msg">{{errorMsg}}</span>
     </div>
 </form>
+
+<!-- >Create modal -->
+<app-signup *ngIf="createModal" (returnMsg)="onModalReturn($event)">
+</app-signup>
+
+<!-- >Message modal -->
+<app-msg-modal [msg]="msg" *ngIf="msg"></app-msg-modal>

@@ -11,18 +11,25 @@ import { LoginComponent } from './components/login/login.component';
 import { TreatmentsComponent } from './components/animals-list/treatments/treatments.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { MaintenancesComponent } from './components/machinery/maintenances/maintenances.component';
+import { SeasonsComponent } from './components/crops/seasons/seasons.component';
+import { CropEventsComponent } from './components/crops/seasons/crop-events/crop-events.component';
+
+//! Guards
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { animation: 'loginPage' } },
-  { path: 'main', component: MainComponent, data: { animation: 'mainPage' } },
-  { path: 'placings', component: PlacingsComponent, data: { animation: 'placingsPage' } },
-  { path: 'animals-list', component: AnimalsListComponent, data: { animation: 'animalsListPage' } },
-  { path: 'treatments', component: TreatmentsComponent, data: { animation: 'treatmentsPage' } },
-  { path: 'crops', component: CropsComponent, data: { animation: 'cropsPage' } },
-  { path: 'machinery', component: MachineryComponent, data: { animation: 'machineryPage' } },
-  { path: 'maintenances', component: MaintenancesComponent, data: { animation: 'maintenancesPage' } },
-  { path: 'tasks', component: TasksComponent, data: { animation: 'tasksPage' } },
+  { path: 'main', component: MainComponent, data: { animation: 'mainPage' }, canActivate: [AuthGuard] },
+  { path: 'placings', component: PlacingsComponent, data: { animation: 'placingsPage' }, canActivate: [AuthGuard] },
+  { path: 'animals-list', component: AnimalsListComponent, data: { animation: 'animalsListPage' }, canActivate: [AuthGuard] },
+  { path: 'treatments', component: TreatmentsComponent, data: { animation: 'treatmentsPage' }, canActivate: [AuthGuard] },
+  { path: 'crops', component: CropsComponent, data: { animation: 'cropsPage' }, canActivate: [AuthGuard] },
+  { path: 'seasons', component: SeasonsComponent, data: { animation: 'seasonsPage' }, canActivate: [AuthGuard] },
+  { path: 'events', component: CropEventsComponent, data: { animation: 'eventsPage' }, canActivate: [AuthGuard] },
+  { path: 'machinery', component: MachineryComponent, data: { animation: 'machineryPage' }, canActivate: [AuthGuard] },
+  { path: 'maintenances', component: MaintenancesComponent, data: { animation: 'maintenancesPage' }, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TasksComponent, data: { animation: 'tasksPage' }, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

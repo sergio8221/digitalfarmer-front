@@ -2,101 +2,117 @@
 <section class="card card-filter elevation-z2">
     <!-- Header -->
     <div class="card-filter__header">
-        <button type="button" class="card-filter__btn-back" [routerLink]="['/login']"><i class="fas fa-sign-out-alt logout-icon"></i></button>
+        <button type="button" class="card-filter__btn-back" (click)="logout()"><i
+                class="fas fa-sign-out-alt logout-icon"></i></button>
         <span class="card-filter__header--title">MI GRANJA</span>
     </div>
 </section>
 
 <!-- >Animals card -->
 
-<section class="card card-animals card-main elevation-z2" [routerLink]="['/placings']">
+<section class="card card-animals card-main elevation-z2" [routerLink]="['/placings']" *ngIf="farm">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Mis animales</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info"><i class="fas fa-info"></i>{{animalsSummary?.animals}}</div>
+                <div class="card__info"><i class="fas fa-egg"></i>{{animalsSummary?.youngs}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
+                <div class="card__info"><i class="fas fa-mars"></i>{{animalsSummary?.male}}</div>
+                <div class="card__info"><i class="fas fa-venus"></i>{{animalsSummary?.female}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
+                <div class="card__info"><i class="fas fa-syringe"></i>{{animalsSummary?.ill}}</div>
                 <div class="card__info"></div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="animalsEchartsOptions" *ngIf="animalsEchartsOptions"></div>
+                <i class="fas fa-mars sex-symbol female-symbol"></i>
+                <i class="fas fa-venus sex-symbol male-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="card card-crops card-main elevation-z2" [routerLink]="['/crops']">
+<!-- >Crops card -->
+
+<section class="card card-crops card-main elevation-z2" [routerLink]="['/crops']" *ngIf="farm">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Mis cultivos</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info">Nº campos: {{cropsSummary.fields}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
+                <div class="card__info">Área total: {{cropsSummary.area}} ha</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
+                <div class="card__info">Gasto {{currYear}}: {{cropsSummary.spent}} €</div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="cropsEchartsOptions" *ngIf="cropsEchartsOptions"></div>
+                <i class="far fa-plus-square sex-symbol big-symbol"></i>
+                <i class="far fa-minus-square sex-symbol small-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="card card-machinery card-main elevation-z2" [routerLink]="['/machinery']">
+<!-- >Machinery card -->
+
+<section class="card card-machinery card-main elevation-z2" [routerLink]="['/machinery']" *ngIf="farm">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Mi maquinaria</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info">Nº máquinas: {{machinerySummary.machines}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
+                <div class="card__info">Gasto total: {{machinerySummary.spent}} €</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
+                <div class="card__info">Nº mantenimientos: {{machinerySummary.maintenances}}</div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="machineryEchartsOptions" *ngIf="machineryEchartsOptions">
+                </div>
+                <i class="fas fa-wrench sex-symbol mantained-symbol"></i>
+                <i class="fas fa-check sex-symbol unmantained-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="card card-farm card-main elevation-z2" [routerLink]="['/tasks']">
+<!-- >Tasks card -->
+
+<section class="card card-farm card-main elevation-z2" [routerLink]="['/tasks']" *ngIf="farm">
     <div class="card__content">
         <div class="card__column card__column--left">
             <h2>Mis tareas</h2>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-info"></i>45</div>
-                <div class="card__info"><i class="fas fa-egg"></i>15</div>
+                <div class="card__info">Tareas completadas: {{tasksSummary.completed}}</div>
             </div>
             <div class="card__line">
-                <div class="card__info"><i class="fas fa-mars"></i>5</div>
-                <div class="card__info"><i class="fas fa-venus"></i>40</div>
-            </div>
-            <div class="card__line">
-                <div class="card__info"><i class="fas fa-syringe"></i>3</div>
-                <div class="card__info"></div>
+                <div class="card__info">Tareas pendientes: {{tasksSummary.pending}}</div>
             </div>
         </div>
         <div class="card__column card__column--right">
-            <i class="fas fa-chart-pie"></i>
+            <div class="chart-container">
+                <div class="pie-chart" echarts [options]="tasksEchartsOptions" *ngIf="tasksEchartsOptions">
+                </div>
+                <i class="far fa-check-circle sex-symbol completed-symbol"></i>
+                <i class="far fa-circle sex-symbol pending-symbol"></i>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- >Loading animation -->
+<i class="fas fa-spinner loading-icon" *ngIf="!farm"></i>

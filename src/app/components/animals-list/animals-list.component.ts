@@ -61,7 +61,7 @@ export class AnimalsListComponent implements OnInit {
 
   ngOnInit() {
     //Get placings
-    if (this.usersService.currFarm.id) {
+    if (this.usersService.currFarm && this.usersService.currFarm.id) {
       this.loadPlacings(this.usersService.currFarm.id);
     } else {
       this.router.navigate(['main']);

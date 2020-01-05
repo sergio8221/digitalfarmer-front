@@ -1,29 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmTask, FarmTasksService } from 'src/app/services/farm-tasks/farm-tasks.service';
 import { Msg } from 'src/app/services/language/language.service';
-import { Router } from '@angular/router';
-import { AnimalsService } from 'src/app/services/animals/animals.service';
+import { CropsService, CropEvent } from 'src/app/services/crops/crops.service';
 import { UsersService } from 'src/app/services/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss'],
+  selector: 'app-crop-events',
+  templateUrl: './crop-events.component.html',
+  styleUrls: ['./crop-events.component.scss'],
   host: {
     class: 'app-screen'
   }
 })
-export class TasksComponent implements OnInit {
+export class CropEventsComponent implements OnInit {
 
   /**
-   * Expand task card?
+   * Expand card?
    */
-  expandTaskId: number;
+  expandEventId: number;
 
   /**
-   * Loaded tasks
+   * Loaded events
    */
-  tasks: FarmTask[];
+  events: CropEvent[];
 
   //> Management
 
@@ -35,7 +34,7 @@ export class TasksComponent implements OnInit {
   /**
    * Object to update
    */
-  objectUpdate: FarmTask;
+  objectUpdate: CropEvent;
 
   //> Messages
 
@@ -44,36 +43,36 @@ export class TasksComponent implements OnInit {
    */
   msg: Msg;
 
-  constructor(private tasksService: FarmTasksService, private usersService: UsersService, private router: Router) { }
+  constructor(private cropsService: CropsService, private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
-    if (this.usersService.currFarm && this.usersService.currFarm.id) {
-      this.loadTasks(this.usersService.currFarm.id);
+    if (this.cropsService.selectedSeasonId) {
+      this.loadEvents(this.cropsService.selectedSeasonId);
     } else {
       this.router.navigate(['main']);
     }
   }
 
   /**
-   * Load tasks
-   * @param idFarm Farm id
+   * Load events
+   * @param idSeason Season id
    */
-  loadTasks(idFarm: number) {
+  loadEvents(idSeason: number) {
     // Init array
-    this.tasks = undefined;
+    this.events = undefined;
 
     // Load from database
-    this.tasksService.getFarmTaskByFarmId(idFarm).subscribe((data: FarmTask[]) => {
-      this.tasks = data;
+    this.cropsService.getCropEventsBySeasonId(idSeason).subscribe((data: CropEvent[]) => {
+      this.events = data;
     })
   }
 
   /**
-   * Expand clicked task card
-   * @param idTask task id
+   * Expand clicked card
+   * @param idEvent event id
    */
-  expandTask(idTask: number) {
-    this.expandTaskId = (this.expandTaskId != idTask) ? idTask : -1;
+  expandEvent(idEvent: number) {
+    this.expandEventId = (this.expandEventId != idEvent) ? idEvent : -1;
   }
 
   //> Management
@@ -88,11 +87,11 @@ export class TasksComponent implements OnInit {
 
   /**
    * Open update modal
-   * @param task Object to update
+   * @param event Object to update
    */
-  update($event: MouseEvent, task: FarmTask) {
+  update($event: MouseEvent, event: CropEvent) {
     $event.stopPropagation();
-    this.objectUpdate = task;
+    this.objectUpdate = event;
     this.createModal = true;
   }
 
@@ -106,7 +105,7 @@ export class TasksComponent implements OnInit {
 
     if (msg) {
       // Reload updated info
-      this.loadTasks(this.usersService.currFarm.id);
+      this.loadEvents(this.cropsService.selectedSeasonId);
 
       // Show message
       this.showMessage(msg);

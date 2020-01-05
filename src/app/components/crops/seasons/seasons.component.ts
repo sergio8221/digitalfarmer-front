@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { Machine, MachineryService } from 'src/app/services/machinery/machinery.service';
+import { Season, CropsService } from 'src/app/services/crops/crops.service';
 import { Msg } from 'src/app/services/language/language.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-machinery',
-  templateUrl: './machinery.component.html',
-  styleUrls: ['./machinery.component.scss'],
+  selector: 'app-seasons',
+  templateUrl: './seasons.component.html',
+  styleUrls: ['./seasons.component.scss'],
   host: {
     class: 'app-screen'
   }
 })
-export class MachineryComponent implements OnInit {
+export class SeasonsComponent implements OnInit {
 
   /**
    * Expand card?
    */
-  expandMachineId: number;
+  expandSeasonId: number;
 
   /**
-   * Loaded machines
+   * Loaded seasons
    */
-  machines: Machine[];
+  seasons: Season[];
 
   //> Management
 
@@ -34,7 +34,7 @@ export class MachineryComponent implements OnInit {
   /**
    * Object to update
    */
-  objectUpdate: Machine;
+  objectUpdate: Season;
 
   //> Messages
 
@@ -43,46 +43,46 @@ export class MachineryComponent implements OnInit {
    */
   msg: Msg;
 
-  constructor(private machineryService: MachineryService, private usersService: UsersService, private router: Router) { }
+  constructor(private cropsService: CropsService, private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
-    if (this.usersService.currFarm && this.usersService.currFarm.id) {
-      this.loadMachines(this.usersService.currFarm.id);
+    if (this.cropsService.selectedFieldId) {
+      this.loadSeasons(this.cropsService.selectedFieldId);
     } else {
       this.router.navigate(['main']);
     }
   }
 
   /**
-   * Load machines
-   * @param idFarm Farm id
+   * Load seasons
+   * @param idField Field id
    */
-  loadMachines(idFarm: number) {
+  loadSeasons(idField: number) {
     // Init array
-    this.machines = undefined;
+    this.seasons = undefined;
 
     // Load from database
-    this.machineryService.getMachinesByFarmId(idFarm).subscribe((data: Machine[]) => {
-      this.machines = data;
+    this.cropsService.getSeasonsByFieldId(idField).subscribe((data: Season[]) => {
+      this.seasons = data;
     })
   }
 
   /**
-   * Expand clicked machine card
-   * @param idMachine machine id
+   * Expand clicked card
+   * @param idSeason season id
    */
-  expandMachine(idMachine: number) {
-    this.expandMachineId = (this.expandMachineId != idMachine) ? idMachine : -1;
+  expandSeason(idSeason: number) {
+    this.expandSeasonId = (this.expandSeasonId != idSeason) ? idSeason : -1;
   }
 
   /**
-   * Show maintenances of a machine
-   * @param idMachine Id of machine
+   * Show events of a season
+   * @param idSeason Id of season
    */
-  showMaintenances($event: MouseEvent, idMachine: number) {
+  showEvents($event: MouseEvent, idSeason: number) {
     $event.stopPropagation();
-    this.machineryService.selectedMachineId = idMachine;
-    this.router.navigate(['maintenances']);
+    this.cropsService.selectedSeasonId = idSeason;
+    this.router.navigate(['events']);
   }
 
   //> Management
@@ -97,11 +97,11 @@ export class MachineryComponent implements OnInit {
 
   /**
    * Open update modal
-   * @param machine Object to update
+   * @param season Object to update
    */
-  update($event: MouseEvent, machine: Machine) {
+  update($event: MouseEvent, season: Season) {
     $event.stopPropagation();
-    this.objectUpdate = machine;
+    this.objectUpdate = season;
     this.createModal = true;
   }
 
@@ -115,7 +115,7 @@ export class MachineryComponent implements OnInit {
 
     if (msg) {
       // Reload updated info
-      this.loadMachines(this.usersService.currFarm.id);
+      this.loadSeasons(this.cropsService.selectedFieldId);
 
       // Show message
       this.showMessage(msg);

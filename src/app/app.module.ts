@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -26,6 +26,13 @@ import { AddTaskComponent } from './components/tasks/add-task/add-task.component
 import { AddMachineComponent } from './components/machinery/add-machine/add-machine.component';
 import { MaintenancesComponent } from './components/machinery/maintenances/maintenances.component';
 import { AddMaintenanceComponent } from './components/machinery/maintenances/add-maintenance/add-maintenance.component';
+import { AddFieldComponent } from './components/crops/add-field/add-field.component';
+import { SeasonsComponent } from './components/crops/seasons/seasons.component';
+import { AddSeasonComponent } from './components/crops/seasons/add-season/add-season.component';
+import { CropEventsComponent } from './components/crops/seasons/crop-events/crop-events.component';
+import { AddEventComponent } from './components/crops/seasons/crop-events/add-event/add-event.component';
+import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
+import { SignupComponent } from './components/login/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,13 @@ import { AddMaintenanceComponent } from './components/machinery/maintenances/add
     AddTaskComponent,
     AddMachineComponent,
     MaintenancesComponent,
-    AddMaintenanceComponent
+    AddMaintenanceComponent,
+    AddFieldComponent,
+    SeasonsComponent,
+    AddSeasonComponent,
+    CropEventsComponent,
+    AddEventComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +68,9 @@ import { AddMaintenanceComponent } from './components/machinery/maintenances/add
     BrowserAnimationsModule,
     NgxEchartsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

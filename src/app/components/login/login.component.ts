@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Msg } from 'src/app/services/language/language.service';
 
 @Component({
   selector: 'app-login',
@@ -23,14 +24,34 @@ export class LoginComponent implements OnInit {
    */
   errorMsg = '';
 
+  /**
+   * Is loading?
+   */
+  loading: boolean;
+
+  //> Management
+
+  /**
+  * Show create modal
+  */
+  createModal: boolean;
+
+  //> Messages
+
+  /**
+   * Message to show on msg-modal
+   */
+  msg: Msg;
+
   constructor(private router: Router, private authService: AuthService) {
 
     //Init form
     this.loginForm = new FormGroup({
-      username: new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(20)
+        Validators.maxLength(50),
+        Validators.email
       ]),
       pass: new FormControl('', [
         Validators.required,
@@ -48,7 +69,47 @@ export class LoginComponent implements OnInit {
    * Attempt to log user in
    */
   login() {
-    this.router.navigate(['/main']);
+    this.loading = true;
+    this.authService.login(this.loginForm.get('email').value, this.loginForm.get('pass').value).subscribe(data => {
+      this.router.navigate(['main']);
+    }, error => {
+      this.errorMsg = error;
+      this.loading = false;
+    });
+  }
+
+  //> Management
+
+  /**
+   * Open creation modal
+   */
+  openSignUp() {
+    this.createModal = true;
+  }
+
+  /**
+   * On modal close
+   * @param msg Message returned
+   */
+  onModalReturn(msg: Msg) {
+    this.createModal = false;
+
+    if (msg) {
+      // Show message
+      this.showMessage(msg);
+    }
+  }
+
+  /**
+   * Show message modal
+   * @param msg Message object
+   */
+  showMessage(msg: Msg) {
+    this.msg = msg;
+    // Set message to show
+    setTimeout(() => {
+      this.msg = null;
+    }, 2000);
   }
 
 }

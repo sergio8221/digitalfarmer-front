@@ -1,21 +1,20 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MachineryService, Machine } from 'src/app/services/machinery/machinery.service';
+import { Field, CropsService } from 'src/app/services/crops/crops.service';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Msg, LanguageService } from 'src/app/services/language/language.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users/users.service';
-import { AnimalsService } from 'src/app/services/animals/animals.service';
 
 @Component({
-  selector: 'app-add-machine',
-  templateUrl: './add-machine.component.html',
-  styleUrls: ['./add-machine.component.scss']
+  selector: 'app-add-field',
+  templateUrl: './add-field.component.html',
+  styleUrls: ['./add-field.component.scss']
 })
-export class AddMachineComponent implements OnInit {
+export class AddFieldComponent implements OnInit {
 
   /**
    * Object to update
    */
-  @Input() objectUpdate: Machine;
+  @Input() objectUpdate: Field;
 
   /**
    * Msg to be returned by modal
@@ -27,30 +26,29 @@ export class AddMachineComponent implements OnInit {
    */
   createForm: FormGroup;
 
-  constructor(private animalsService: AnimalsService,
-    private machineryService: MachineryService,
+  constructor(private cropsService: CropsService,
     private usersService: UsersService,
     private languageService: LanguageService) {
     // Init form
     this.createForm = new FormGroup({
-      name: new FormControl('', [
+      location: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(20)
       ]),
-      adquisition: new FormControl(null, [
-        Validators.required
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(20)
       ]),
-      cost: new FormControl(0, [
+      area: new FormControl(null, [
+        Validators.required,
         Validators.min(0)
       ])
     });
   }
 
   ngOnInit() {
-    // Load today date
-    this.createForm.get('adquisition').setValue(this.animalsService.parseDateString(new Date()));
-
     // If update selected load values into form
     if (this.objectUpdate) {
       this.loadUpdate();
@@ -62,11 +60,11 @@ export class AddMachineComponent implements OnInit {
    */
   create() {
     // Create object
-    let newObject: Machine = {
+    let newObject: Field = {
       id: null,
-      name: this.createForm.get('name').value,
-      adquisition: this.createForm.get('adquisition').value,
-      cost: this.createForm.get('cost').value,
+      location: this.createForm.get('location').value,
+      description: this.createForm.get('description').value,
+      area: this.createForm.get('area').value,
       farm: {
         id: this.usersService.currFarm.id,
         location: null
@@ -74,7 +72,7 @@ export class AddMachineComponent implements OnInit {
     };
 
     // Send object to database
-    this.machineryService.createMachine(newObject).subscribe(data => {
+    this.cropsService.createField(newObject).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.createSuccess);
     }, error => {
@@ -88,11 +86,9 @@ export class AddMachineComponent implements OnInit {
    * Fill form with update info
    */
   loadUpdate() {
-    this.createForm.get('name').setValue(this.objectUpdate.name);
-    this.createForm.get('cost').setValue(this.objectUpdate.cost);
-
-    // Load date
-    this.createForm.get('adquisition').setValue(this.animalsService.parseDateString(new Date(this.objectUpdate.adquisition)));
+    this.createForm.get('location').setValue(this.objectUpdate.location);
+    this.createForm.get('description').setValue(this.objectUpdate.description);
+    this.createForm.get('area').setValue(this.objectUpdate.area);
   }
 
   /**
@@ -100,11 +96,11 @@ export class AddMachineComponent implements OnInit {
    */
   update() {
     // Create object
-    let newObject: Machine = {
+    let newObject: Field = {
       id: this.objectUpdate.id,
-      name: this.createForm.get('name').value,
-      adquisition: this.createForm.get('adquisition').value,
-      cost: this.createForm.get('cost').value,
+      location: this.createForm.get('location').value,
+      description: this.createForm.get('description').value,
+      area: this.createForm.get('area').value,
       farm: {
         id: this.usersService.currFarm.id,
         location: null
@@ -112,7 +108,7 @@ export class AddMachineComponent implements OnInit {
     };
 
     // Send object to database
-    this.machineryService.updateMachine(newObject).subscribe(data => {
+    this.cropsService.updateField(newObject).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.updateSuccess);
     }, error => {
@@ -127,7 +123,7 @@ export class AddMachineComponent implements OnInit {
    */
   delete() {
     // Delete object from database
-    this.machineryService.deleteMachine(this.objectUpdate.id).subscribe(data => {
+    this.cropsService.deleteField(this.objectUpdate.id).subscribe(data => {
       // Emit success
       this.returnMsg.emit(this.languageService.msgs.deleteSuccess);
     }, error => {

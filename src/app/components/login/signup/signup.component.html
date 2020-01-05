@@ -1,0 +1,26 @@
+<div class="modal-backdrop">
+    <form class="form" [formGroup]="createForm">
+        <h2 class="form-title">Registro</h2>
+        <button class="btn-close" type="button" (click)="cancel()"><i class="far fa-window-close"></i></button>
+        <div class="form-row">
+            <input class="text-input" placeholder="Email" formControlName="email">
+        </div>
+        <div class="form-row">
+            <input class="text-input" type="password" placeholder="Contraseña" formControlName="pass">
+        </div>
+        <div class="form-row">
+            <input class="text-input" placeholder="Nombre" formControlName="name">
+        </div>
+        <div class="form-row">
+            <input class="text-input" placeholder="Localización" formControlName="location">
+        </div>
+        <div class="controls-row">
+            <button class="btn-accept" type="button" (click)="create()"
+                [disabled]="!createForm.valid">Registrarse</button>
+        </div>
+        <div class="form-row">
+            <!-- Errors -->
+            <span *ngIf="errorMsg" class="error-msg">{{errorMsg}}</span>
+        </div>
+    </form>
+</div>

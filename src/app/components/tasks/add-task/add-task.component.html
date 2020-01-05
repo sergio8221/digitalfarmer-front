@@ -9,9 +9,9 @@
         <div class="form-row">
             <input class="text-input" type="date" formControlName="date">
         </div>
-        <div class="check-row">
-            <input class="check-input" id="completed" type="checkbox" formControlName="completed"
-                *ngIf="objectUpdate"><label for="completed" class="check-label">Completada</label>
+        <div class="check-row" *ngIf="objectUpdate">
+            <input class="check-input" id="completed" type="checkbox" formControlName="completed"><label for="completed"
+                class="check-label">Completada</label>
         </div>
         <div class="controls-row">
             <button class="btn-accept" *ngIf="objectUpdate" type="button" (click)="delete()">
